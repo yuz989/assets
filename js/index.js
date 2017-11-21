@@ -3,8 +3,7 @@ Vue.component('paginate', VuejsPaginate);
 var App = {
     init: function(config) {
         this.config = config || {
-            debug: false,
-            webApiBaseURL: "http://mj.klook.io"
+            debug: false
         };
         this.config.vueBootstrapMap = {
             'assets/rule/event.html': Event,
@@ -18,17 +17,12 @@ var App = {
     },
     network: {
         fetch: function(path, callback, param) {
-            param = param || {
-                mode: 'no-cors'
-            };
-
             callback = callback || {
                 success: function(d){},
                 fail: function(d){}
             };
-
-            var requestURL = App.config.webApiBaseURL + path;
-            return axios.get(requestURL, param).then(function(response) {
+            path = '/v1/mjwebsrv' + path
+            return axios.get(path, param).then(function(response) {
                 if(response.data.success) {
                     callback.success(response.data.result);
                 } else {
@@ -40,7 +34,6 @@ var App = {
             });
         },
         post: function(url, param) {
-            param.mode = 'no-cors';
             var requestURL = App.config.webApiBaseURL + url;
             return axios.post(
                 requestURL,
