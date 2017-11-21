@@ -3,8 +3,8 @@ Vue.component('paginate', VuejsPaginate);
 var App = {
     init: function(config) {
         this.config = config || {
-            debug: config.debug || false,
-            webApiBaseURL: config.webApiBaseURL || "http://mojing.klook.com"
+            debug: false,
+            webApiBaseURL: "http://mj.klook.io"
         };
         this.config.vueBootstrapMap = {
             'assets/rule/event.html': Event,
@@ -69,10 +69,7 @@ function loadhtmlToContainer(html) {
 }
 
 window.onload = function(ev) {
-    App.init({
-        debug: true,
-        webApiBaseURL: "http://127.0.0.1:10032"
-    });
+    App.init();
 
     // 默认首页
     var hash = window.location.hash;
