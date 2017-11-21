@@ -1,0 +1,193 @@
+<div class="content-wrapper" style="min-height: 1170px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            风险审核页
+          </h1>
+        </section>
+    
+        <div class="pad margin no-print">
+          <div class="callout callout-info" style="margin-bottom: 0!important;">
+            <h4><i class="fa fa-info"></i> Note:</h4>
+              人工审核交易风险...
+          </div>
+        </div>
+    
+        <!-- Main content -->
+        <section class="invoice">
+          <!-- title row -->
+          <div class="row">
+            <div class="col-xs-12">
+              <h2 class="page-header">
+                <i class="fa fa-globe"></i> O2-XXX
+                <small class="pull-right">Date: 3/11/20174</small>
+              </h2>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- info row -->
+          <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+              <address>
+                <strong>帐户信息</strong><br>
+                795 Folsom Ave, Suite 600<br>
+                San Francisco, CA 94107<br>
+                Phone: (804) 123-5432<br>
+                Email: info@almasaeedstudio.com
+              </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>交易信息</b><br>
+                <br>
+                <b>Order ID:</b> 4F3S8J<br>
+                <b>Payment Due:</b> 2/22/2014<br>
+                <b>Visa:</b> 968-34567
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+              <b>其它信息</b><br>
+              <br>
+              <b>服务名:</b> 订单服务<br>
+              <b>IP:</b> 101.1.22.8<br>
+              <b>设备指纹:</b> 968-34567
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+    
+          <!-- Table row -->
+          <div class="row">
+            <div class="col-xs-12 table-responsive">
+              <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>事件名称</th>
+                      <th>规则名称</th>
+                      <th>规则版本</th>
+                      <th>规则类型</th>
+                      <th>规则内容</th>
+                      <th>风险分</th>
+                      <th>耗时</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>下单</td>
+                      <td>下单频率</td>
+                      <td>v1</td>
+                      <td>通用</td>
+                      <td>select * form sss </td>
+                      <td>150</td>
+                      <td>20ms</td>
+                    </tr>
+                    <tr>
+                        <td>下单</td>
+                        <td>金额限制</td>
+                        <td>v2</td>
+                        <td>风控</td>
+                        <td>select count(*) form ccc </td>
+                        <td>10</td>
+                        <td>2ms</td>
+                      </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+    
+          <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-xs-6">
+              <p class="lead">审核处理:</p>
+                <!--
+              <img src="../../dist/img/credit/visa.png" alt="Visa">
+              <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+              <img src="../../dist/img/credit/american-express.png" alt="American Express">
+             <img src="../../dist/img/credit/paypal2.png" alt="Paypal"> -->
+    
+              <!-- 
+              <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg
+                dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+              </p>
+            -->
+         
+
+              <fieldset class="form-group">
+                 <!-- <legend>风险</legend> -->
+                  <label for="exampleTextarea">手工备注:</label>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                      无
+                    </label>
+                  </div>
+                  <div class="form-check">
+                  <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                      高风险
+                    </label>
+                  </div>
+                  <div class="form-check disabled">
+                  <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                      中风险
+                    </label>
+                  </div>
+                  <div class="form-check">
+                      <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                          低风险
+                        </label>
+                      </div>
+                </fieldset>
+
+              <div class="form-group">
+                <label for="exampleTextarea">手工备注:</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+              </div>
+            
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+              <p class="lead">风险评估</p>
+    
+              <div class="table-responsive">
+                <table class="table">
+                  <tbody><tr>
+                    <th style="width:50%">事件</th>
+                    <td>规则</td>
+                  </tr>
+                  <tr>
+                    <th>总风险分</th>
+                    <td>300</td>
+                  </tr>
+                  <tr>
+                    <th>预判风险等级:</th>
+                    <td>高</td>
+                  </tr>
+                
+                </tbody></table>
+              </div>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+    
+          <!-- this row will not appear when printing -->
+          <div class="row no-print">
+            <div class="col-xs-12">
+              <!--<a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> 提交</a> -->
+              <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> 审核 
+              </button>
+              <!-- <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                <i class="fa fa-download"></i> Generate PDF
+              </button>  -->
+            </div>
+          </div>
+        </section>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+      </div>

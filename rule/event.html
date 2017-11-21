@@ -1,0 +1,113 @@
+<div id="eventComponent" class="content-wrapper" style="min-height: 1170px;">
+    <section class="content-header">
+        <h1>
+            事件列表
+        </h1>
+    </section>
+
+    <section class="invoice">
+        <div class="row">
+        </div>
+        <div class="row invoice-info"></div>
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+            <div class="col-sm-6">
+                <div class="dataTables_length" id="example1_length">
+                    <label>Show
+                        <select name="example1_length" aria-controls="example1" class="form-control input-sm"
+                                v-model="pageSize" v-on:change="onPageSizeChange()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> entries
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            </div>
+            <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="事件ID">事件ID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="所属事件组">所属事件组
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件名称">
+                        事件名称
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件说明">
+                        事件描述
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="事件重要性">事件重要性
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="低风险基准分">低风险基准分
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="高风险基准分">高风险基准分
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" v-bind:class="{even: index%2==0, odd: index%2==1 }"
+                    v-for="(event, index) in eventList.items">
+                    <td>{{event.event_id}}</td>
+                    <td>{{event.event_group}}</td>
+                    <td>{{event.event_name}}</td>
+                    <td>{{event.event_comment}}</td>
+                    <td>{{event.event_priority}}</td>
+                    <td>{{event.risk_score_low}}</td>
+                    <td>{{event.risk_score_high}}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+                    Showing {{eventList.currentPageStartIndex()}} to {{eventList.currentPageEndIndex()}} of
+                    {{eventList.total()}} entries
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers">
+                    <ul class="pagination">
+                        <li v-bind:class="{disabled: eventList.pagination.page==1}"
+                            class="paginate_button previous" id="example1_previous"><a
+                                v-on:click="eventList.previousPage()"
+                                aria-controls="example1"
+                                data-dt-idx="0"
+                                tabindex="0">Previous</a>
+                        </li>
+
+                        <li v-for="(item, index) in 10"
+                            v-if="eventList.pagination.page-5+index <= eventList.pagination.totalPages && eventList.pagination.page-5+index >= 1"
+                            class="paginate_button"
+                            v-bind:class="{active: eventList.pagination.page-5+index == eventList.pagination.page}"
+                        >
+                            <a v-on:click="eventList.gotoPage(eventList.pagination.page-5+index)"
+                               aria-controls="example1" data-dt-idx="1" tabindex="0">
+                                {{eventList.pagination.page-5+index}}
+                            </a>
+                        </li>
+
+                        <li v-bind:class="{disabled: eventList.pagination.page==eventList.pagination.totalPages}"
+                            class="paginate_button next" id="example1_next"><a
+                                v-on:click="eventList.nextPage()"
+                                aria-controls="example1"
+                                data-dt-idx="7"
+                                tabindex="0">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,67 @@
+<div id="riskAuditComponent" class="content-wrapper" style="min-height: 1170px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            疑似风险审核
+        </h1>
+    </section>
+
+    <div class="pad margin no-print">
+        <label>类别</label>
+        <select class="selectpicker" data-style="btn-primary">
+            <option value="false">未审核</option>
+            <option value="yes">已审核</option>
+            <option value="all">全部</option>
+        </select>
+    </div>
+
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+        </div>
+        <div class="row invoice-info">
+        </div>
+        <!-- /.row -->
+
+        <!-- Table row -->
+        <div class="row">
+            <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
+                   aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="风险评估ID">风险评估ID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="事件会话ID">事件会话ID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="风险预判总分">风险预判总分
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="预判风险等级">预判风险等级
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label=""></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" v-bind:class="{even: index%2==0, odd: index%2==1 }"
+                    v-for="(risk, index) in riskAuditList.items">
+                    <td class="sorting_1">{{risk.risk_check_id}}</td>
+                    <td>{{risk.session_id}}</td>
+                    <td>{{risk.total_score}}</td>
+                    <td>{{risk.risk_level}}</td>
+                    <td>
+                        <button class="btn btn-default">
+                            <a href="javascript:loadhtmlToContainer('assets/risk/riskmanualauditdetail.html')">编辑</a>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+</div>

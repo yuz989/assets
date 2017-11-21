@@ -1,0 +1,109 @@
+<div id="ruleAnalysesComponent" class="content-wrapper" style="min-height: 1170px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            策略效果评估
+        </h1>
+    </section>
+    <div class="pad margin no-print">
+
+        <form class="form-inline">
+            <label class="mr-sm-2" for="ruleSelect">规则</label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="ruleSelect" v-model="searchFilter.rule_id">
+                <option value="0" selected>ALL</option>
+                <option v-for="rule in selectedEvent.rules" v-bind:value="rule.rule_id">{{rule.rule_name}}</option>
+            </select>
+
+            <label class="mr-sm-2" for="eventSelect">事件</label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="eventSelect" v-model="searchFilter.event_id" v-on:change="selectEvent()">
+                <option value="0" selected>ALL</option>
+                <option v-for="eventRule in eventRules" v-bind:value="eventRule.event_id">{{eventRule.event_name}}</option>
+            </select>
+
+            <label for="filter_start_date">时间范围:</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_date">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">~</div>
+                <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_end_date">
+            </div>
+            <button v-on:click="ruleAnalysisList.search({
+                filters: {
+                    start_date: searchFilter.start_time,
+                    end_date: searchFilter.end_time,
+                    event_id: searchFilter.event_id,
+                    rule_id: searchFilter.rule_id}
+            })" type="submit" class="btn btn-primary">查找</button>
+        </form>
+    </div>
+
+    <section class="invoice">
+        <div class="row">
+        </div>
+        <div class="row invoice-info">
+
+            <div class="form-group">
+                <label>规则评估明细</label>
+            </div>
+        </div>
+        <div class="row">
+            <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
+                   aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="事件名称">规则ID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件名称">
+                        规则名称
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="触发时间">
+                        时间
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="RequestID">总命中数
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件来源">
+                        正确数
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据类型">
+                        命中率
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="评估结果">
+                        评估结果
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" v-bind:class="{even: index%2==0, odd: index%2==1 }"
+                    v-for="(ruleAnalysis, index) in ruleAnalysisList.items">
+                    <td>{{ ruleAnalysis.rule_id }}</td>
+                    <td>{{ ruleAnalysis.name }}</td>
+                    <td>{{ ruleAnalysis.date }}</td>
+                    <td>{{ ruleAnalysis.total_qty }}</td>
+                    <td>{{ ruleAnalysis.hit_qty }}</td>
+                    <td>{{ ruleAnalysis.hit_qty / ruleAnalysis.total_qty * 100 }}%</td>
+                    <td>{{ ruleAnalysis.analysis_comment }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Area Chart</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="chart">
+                    <canvas id="areaChart" style="height: 250px; width: 661px;" width="661" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+</div>

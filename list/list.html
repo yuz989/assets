@@ -1,0 +1,420 @@
+<div id="riskListComponent" class="content-wrapper" style="min-height: 990px;">
+    <section class="content-header">
+        <h1>
+            黑白(灰)名单库
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">List</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">名单分类</h3>
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li v-bind:class="{active: currentTable.name=='account'}"><a
+                                    v-on:click="displayRiskList('account')"><i class="fa fa-user-circle-o"></i>
+                                帐户名单
+                                <span class="label label-primary pull-right">{{riskListSummary.num_risk_accounts}}</span></a>
+                            </li>
+                            <li v-bind:class="{active: currentTable.name=='ip'}"><a
+                                    v-on:click="displayRiskList('ip')"><i class="fa fa-file-text-o"></i> IP名单 <span
+                                    class="label label-warning pull-right">{{riskListSummary.num_risk_ips}}</span></a>
+                            </li>
+                            <li v-bind:class="{active: currentTable.name=='device'}"><a
+                                    v-on:click="displayRiskList('device')"><i class="fa fa-forumbee"></i> 设备名单 <span
+                                    class="label label-danger pull-right">{{riskListSummary.num_risk_devices}}</span></a>
+                            </li>
+                            <!--<li><a href="#"><i class="fa fa-envelope-o"></i> 邮箱名单</a></li>-->
+                            <!--<li><a href="#"><i class="fa fa-address-card-o"></i> 国家或地区名单 <span-->
+                            <!--class="label label-warning pull-right"></span></a>-->
+                            <!--</li>-->
+                            <!--<li><a href="#"><i class="fa fa-phone"></i> 手机号名单</a></li>-->
+                            <!--<li><a href="#"><i class="fa fa-vcard"></i> 信用卡名单</a></li>-->
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /. box -->
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"></h3>
+
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a v-on:click="setListType('black')"><i class="fa"
+                        v-bind:class="{'fa-circle': tableSettings.filters.list_type =='black', 'fa-circle-o': tableSettings.filters.list_type !='black'}"></i>
+                                黑名单</a></li>
+                            <li><a v-on:click="setListType('grey')"><i class="fa"
+                                v-bind:class="{'fa-circle': tableSettings.filters.list_type =='grey', 'fa-circle-o': tableSettings.filters.list_type !='grey'}"></i>
+                                灰名单</a></li>
+                            <li><a v-on:click="setListType('white')"><i class="fa"
+                                v-bind:class="{'fa-circle': tableSettings.filters.list_type =='white', 'fa-circle-o': tableSettings.filters.list_type !='white'}"></i>
+                                白名单</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"></h3>
+
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <!--<input type="text" class="form-control input-sm" placeholder="Search" v-model="currentTable.searchKeyword" v-on:keyup.enter="currentTable.search()">-->
+                                <!--<span class="glyphicon glyphicon-search form-control-feedback"></span>-->
+                            </div>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped" v-show="currentTable.name=='account'">
+                                <thead>
+                                <tr>
+                                    <td><input type="checkbox" v-model="tables.account.list.status.isAllSelected" v-on:change="tables.account.list.toggleSelectAll()"></td>
+                                    <th>List ID</th>
+                                    <th>名单类型</th>
+                                    <th>帐户类型</th>
+                                    <th>帐户ID</th>
+                                    <th>建立时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item, index) in tables.account.list.items">
+                                    <td><input type="checkbox" v-model="item._selected" v-on:change="tables.account.list.toggleSelectedItem(index)"></td>
+                                    <td class="mailbox-star">{{item.list_id}}</td>
+                                    <td class="mailbox-name">{{item.list_type}}</td>
+                                    <td class="mailbox-subject">{{item.account_type}}</td>
+                                    <td class="mailbox-attachment">{{item.account_id}}</td>
+                                    <td class="mailbox-date">{{item.creation_date}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-hover table-striped" v-show="currentTable.name=='ip'">
+                                <thead>
+                                <tr>
+                                    <td><input type="checkbox" v-model="tables.ip.list.status.isAllSelected" v-on:change="tables.ip.list.toggleSelectAll()"></td>
+                                    <th>List ID</th>
+                                    <th>名单类型</th>
+                                    <th>IP</th>
+                                    <th>备注</th>
+                                    <th>建立时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item, index) in tables.ip.list.items">
+                                    <td><input type="checkbox" v-model="item._selected"></td>
+                                    <td class="mailbox-star">{{item.list_id}}</td>
+                                    <td class="mailbox-name">{{item.list_type}}</td>
+                                    <td class="mailbox-subject">{{item.ip}}</td>
+                                    <td class="mailbox-attachment">{{item.list_comment}}</td>
+                                    <td class="mailbox-date">{{item.creation_date}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-hover table-striped" v-show="currentTable.name=='device'">
+                                <thead>
+                                <tr>
+                                    <td><input type="checkbox" v-model="tables.device.list.status.isAllSelected" v-on:change="tables.device.list.toggleSelectAll()"></td>
+                                    <th>List ID</th>
+                                    <th>名单类型</th>
+                                    <th>设备类型</th>
+                                    <th>设备指纹</th>
+                                    <th>建立时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item, index) in tables.device.list.items">
+                                    <td><input type="checkbox" v-model="item._selected" v-on:change="tables.device.list.toggleSelectedItem(index)"></td>
+                                    <td class="mailbox-star">{{item.list_id}}</td>
+                                    <td class="mailbox-name">{{item.list_type}}</td>
+                                    <td class="mailbox-subject">{{item.device_type}}</td>
+                                    <td class="mailbox-attachment">{{item.device_id}}</td>
+                                    <td class="mailbox-date">{{item.creation_date}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.mail-box-messages -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <div class="btn-group">
+                                <button type="button" v-bind:disabled="currentTable.list.isLoading()"
+                                        v-on:click="currentTable.addItemToList()" class="btn btn-default btn-sm"><i
+                                        class="fa fa-plus"></i></button>
+                                <button type="button" v-bind:disabled="currentTable.list.isLoading() || currentTable.list.numSelectedItems() == 0"
+                                        v-on:click="currentTable.removeItemFromList()" class="btn btn-default btn-sm"><i
+                                        class="fa fa-minus"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button type="button" class="btn btn-default btn-sm" v-on:click="currentTable.reloadPage()"
+                                    v-bind:disabled="currentTable.list.isLoading()">
+                                <span class="glyphicon glyphicon-refresh"
+                                      v-bind:class="{spinning: currentTable.list.isLoading()}"></span>
+                            </button>
+                            <div class="pull-right">
+                                {{currentTable.list.currentPageStartIndex()}} -
+                                {{currentTable.list.currentPageEndIndex()}} /
+                                {{currentTable.list.pagination.totalPages}}
+                                <div class="btn-group">
+                                    <button type="button" v-bind:disabled="currentTable.list.isLoading() || currentTable.list.pagination.page == 1"
+                                            class="btn btn-default btn-sm"><i
+                                            class="fa fa-chevron-left"></i></button>
+                                    <button type="button" v-bind:disabled="currentTable.list.isLoading() || currentTable.list.pagination.page == currentTable.list.pagination.totalPages"
+                                            class="btn btn-default btn-sm"><i
+                                            class="fa fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /. box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+
+    <!-- Modal -->
+    <div class="modal" id="AddRiskAccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增帐号</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <label>List Type</label>
+                        <select class="form-control" name="list_type" v-model="tables.account.newItem.list_type">
+                            <option value="black">black</option>
+                            <option value="white">white</option>
+                            <option value="grey">grey</option>
+                        </select>
+                        <label>Account Type</label>
+                        <input class="form-control" name="account_type" v-model="tables.account.newItem.account_type">
+                        <label>Account ID</label>
+                        <input class="form-control" type="number" name="account_id"
+                               v-model="tables.account.newItem.account_id">
+                        <label>List Comment</label>
+                        <textarea class="form-control" v-model="tables.account.newItem.list_comment"></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button v-bind:disabled="tables.account.widget.addItemModal.saveButtonDisabled"
+                            v-on:click="tables.account.saveNewItem()" type="button" class="btn btn-primary">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="AddRiskIPModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增IP</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <label>List Type</label>
+                        <select class="form-control" name="list_type">
+                            <option value="black">black</option>
+                            <option value="white">white</option>
+                            <option value="grey">grey</option>
+                        </select>
+                        <label>IP</label>
+                        <input class="form-control" name="account_type">
+                        <label>List Comment</label>
+                        <textarea class="form-control"></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" v-on:click="tables.ip.saveNewItem()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="AddRiskDeviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增设备</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <label>List Type</label>
+                        <select class="form-control" name="list_type">
+                            <option value="black">black</option>
+                            <option value="white">white</option>
+                            <option value="grey">grey</option>
+                        </select>
+                        <label>Device Type</label>
+                        <input class="form-control" name="device_type">
+                        <label>Device ID</label>
+                        <input class="form-control" type="number" name="device_id">
+                        <label>List Comment</label>
+                        <textarea class="form-control" name="list_comment"></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" v-on:click="tables.device.saveNewItem()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="RemoveRiskAccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">确认删除</h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>List ID</th>
+                            <th>名单类型</th>
+                            <th>帐户类型</th>
+                            <th>帐户ID</th>
+                            <th>建立时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-if="item._selected" v-for="(item, index) in tables.account.list.items">
+                            <td class="mailbox-star">{{item.list_id}}</td>
+                            <td class="mailbox-name">{{item.list_type}}</td>
+                            <td class="mailbox-subject">{{item.account_type}}</td>
+                            <td class="mailbox-attachment">{{item.account_id}}</td>
+                            <td class="mailbox-date">{{item.creation_date}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button v-bind:disabled="tables.account.widget.addItemModal.saveButtonDisabled"
+                            v-on:click="tables.account.deleteSelectedItems()" type="button" class="btn btn-danger">Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="RemoveRiskIPModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">确认删除</h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>List ID</th>
+                            <th>名单类型</th>
+                            <th>IP</th>
+                            <th>备注</th>
+                            <th>建立时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-if="item._selected" v-for="(item, index) in tables.ip.list.items">
+                            <td class="mailbox-star">{{item.list_id}}</td>
+                            <td class="mailbox-name">{{item.list_type}}</td>
+                            <td class="mailbox-subject">{{item.ip}}</td>
+                            <td class="mailbox-attachment">{{item.list_comment}}</td>
+                            <td class="mailbox-date">{{item.creation_date}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button v-bind:disabled="tables.ip.widget.addItemModal.saveButtonDisabled"
+                            v-on:click="tables.ip.deleteSelectedItems()" type="button" class="btn btn-danger">Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="RemoveRiskDeviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">确认删除</h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>List ID</th>
+                            <th>名单类型</th>
+                            <th>设备类型</th>
+                            <th>设备指纹</th>
+                            <th>建立时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item, index) in tables.device.list.items">
+                            <td class="mailbox-star">{{item.list_id}}</td>
+                            <td class="mailbox-name">{{item.list_type}}</td>
+                            <td class="mailbox-subject">{{item.device_type}}</td>
+                            <td class="mailbox-attachment">{{item.device_id}}</td>
+                            <td class="mailbox-date">{{item.creation_date}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button v-bind:disabled="tables.device.widget.addItemModal.saveButtonDisabled"
+                            v-on:click="tables.device.deleteSelectedItems()" type="button" class="btn btn-danger">Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

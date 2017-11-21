@@ -1,0 +1,104 @@
+<div id="ruleTestComponent" class="content-wrapper" style="min-height: 1170px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            规则灰度测试
+        </h1>
+    </section>
+    <div class="pad margin no-print">
+        <form class="form-inline">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">规则</label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                <option selected>Choose...</option>
+                <option value="1">规则1</option>
+                <option value="2">规则2</option>
+                <option value="3">规则3</option>
+            </select>
+
+            <label class="mr-sm-2" for="inlineFormCustomSelect">事件</label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                <option selected>Choose...</option>
+                <option value="1">下单</option>
+                <option value="2">支付</option>
+                <option value="3">注册</option>
+            </select>
+
+            <label for="filter_start_date">时间范围:</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_date">
+
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">~</div>
+                <input type="text" class="form-control"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_end_date">
+            </div>
+            <button type="submit" class="btn btn-primary">测试</button>
+        </form>
+    </div>
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label>测试结果:</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..." autocomplete="off"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row invoice-info">
+
+            <div class="form-group">
+                <label>交易及处理明细</label>
+            </div>
+        </div>
+        <div class="row">
+            <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
+                   aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="事件名称">事件ID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件名称">
+                        事件名称
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="触发时间">
+                        触发时间
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="RequestID">RequestID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件来源">
+                        事件来源
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据类型">
+                        数据类型
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据内容">
+                        数据内容(JSON)
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="风险分">
+                        风险分
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="评估结果">
+                        评估结果
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd" v-show="false">
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+</div>

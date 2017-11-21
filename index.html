@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MoJing</title>
+
+    <!--neo4jd3-->
+    <link rel="stylesheet" href="assets/static/neo4jd3/css/neo4jd3.css">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="assets/static/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/static/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="assets/static/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/static/adminlte/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="assets/static/adminlte/css/skins/_all-skins.min.css">
+
+    <!--node_module-->
+    <link rel="stylesheet" href="assets/node_modules/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet"  href="assets/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <style>
+        div.left-small-box {
+            min-height: 100px
+        }
+
+        #neo4jd3-canvas {
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .nav-pills li {
+            cursor: pointer;
+        }
+
+    .glyphicon.spinning {
+        animation: spin 2s infinite linear;
+        -webkit-animation: spin2 2s infinite linear;
+    }
+
+    @keyframes spin {
+        from { transform: scale(1) rotate(0deg); }
+        to { transform: scale(1) rotate(360deg); }
+    }
+
+    @-webkit-keyframes spin2 {
+        from { -webkit-transform: rotate(0deg); }
+        to { -webkit-transform: rotate(360deg); }
+    }
+
+    li.paginate_button:hover {
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body class="skin-blue-light layout-top-nav" style="height: auto; min-height: 100%;">
+<div class="wrapper" style="height: auto; min-height: 100%;" >
+    <header class="main-header">
+        <nav class="navbar navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="/" class="navbar-brand">魔镜</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="javascript:loadhtmlToContainer('assets/graph/graph.html')">图关联查询</a>
+                        </li>
+                        <!-- <li><a href="#">规则</a></li>  -->
+                        <!--
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础数据 <span
+                                    class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">事件定义</a></li>
+                                <li><a href="#">规则定义</a></li>
+                            </ul>
+                        </li> -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">风险策略管理 <span
+                                    class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="javascript:loadhtmlToContainer('assets/list/list.html')">黑白灰名单库</a></li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:loadhtmlToContainer('assets/rule/event.html')">事件定义</a></li>
+                                <li><a href="javascript:loadhtmlToContainer('assets/rule/rule.html')">规则定义</a></li>
+                                <li class="divider"></li>
+                                <!--<li><a href="javascript:loadhtmlToContainer('assets/rule/eventrules.html')">风控策略设置</a></li>-->
+                                <li><a href="javascript:loadhtmlToContainer('assets/rule/ruleresult.html')">策略效果评估</a></li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:loadhtmlToContainer('assets/rule/ruletest.html')">规则灰度测试</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">反欺诈处理 <span
+                                    class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <!--<li><a href="javascript:loadhtmlToContainer('assets/risk/riskmanualaudit.html')">疑似风险记录</a></li>-->
+                                <li class="divider"></li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:loadhtmlToContainer('assets/risk/eventsnap.html') ">事件档案库</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown hidden">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span
+                                    class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="content-wrapper" id="main-container" style="min-height: 257px;">
+    <footer class="main-footer">
+        <div class="container">
+        </div>
+    </footer>
+</div>
+</div>
+<!-- jQuery 3 -->
+<script src="assets/static/jquery/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="assets/static/bootstrap/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="assets/static/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="assets/static/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="assets/static/adminlte/js/adminlte.min.js"></script>
+
+<script src="assets/static/vue/vue.js"></script>
+<script src="assets/node_modules/vue-router/dist/vue-router.js"></script>
+<script src="assets/node_modules/bootstrap-select/dist/js/bootstrap-select.js"></script>
+<script src="assets/node_modules/axios/dist/axios.min.js"></script>
+<script src="assets/node_modules/vuejs-paginate/dist/index.js"></script>
+<script src="assets/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<!-- vue app components-->
+<script src="assets/js/common/component.js"></script>
+<script src="assets/js/graph/graph.js"></script>
+<script src="assets/js/event/event.js"></script>
+<script src="assets/js/event_session/event_session.js"></script>
+<script src="assets/js/rule/rule.js"></script>
+<script src="assets/js/list/list.js"></script>
+<script src="assets/js/risk/risk_audit.js"></script>
+<script src="assets/js/rule/rule_analyses.js"></script>
+<script src="assets/js/rule/rule_test.js"></script>
+<script src="assets/js/index.js"></script>
+</body>
+</html>

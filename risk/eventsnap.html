@@ -1,0 +1,115 @@
+<div id="eventSessionComponent" class="content-wrapper" style="min-height: 1170px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            事件档案库
+        </h1>
+    </section>
+    <div class="pad margin no-print">
+        <form class="form-inline">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">事件</label>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" v-model="filters.event_id">
+                <option value="0">ALL</option>
+                <option v-for="event in eventSummary" v-bind:value="event.event_id"> {{event.event_name}}</option>
+            </select>
+
+            <label for="inlineFormInput">时间范围:</label>
+            <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_date">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">~</div>
+                <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="结束时间" id="filter_end_date">
+            </div>
+
+            <label for="inlineFormInput">事件ID</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="事件ID" v-model="filters.session_data_id">
+            <button v-on:click="onSearchClick()" type="submit" class="btn btn-primary">检索</button>
+        </form>
+    </div>
+
+
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+        </div>
+        <div class="row invoice-info">
+        </div>
+
+        <div class="row">
+            <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
+                   aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="事件名称">事件ID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件名称">
+                        事件名称
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="触发时间">
+                        触发时间
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                        aria-label="RequestID">RequestID
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件来源">
+                        事件来源
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据类型">
+                        数据类型
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据内容">
+                        数据内容(JSON)
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr role="row" v-bind:class="{even: index%2==0, odd: index%2==1 }" v-for="(eventSession, index) in eventSessionList.items">
+                    <td>{{eventSession.session_d_id}}</td>
+                    <td>{{eventSession.event_name}}</td>
+                    <td>{{eventSession.trigger_time}}</td>
+                    <td>{{eventSession.request_id}}</td>
+                    <td>{{eventSession.session_source}}</td>
+                    <td>{{eventSession.content_type}}</td>
+                    <td>{{eventSession.content}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers">
+                <ul class="pagination">
+                    <li v-bind:class="{disabled: eventSessionList.pagination.page==1}"
+                        class="paginate_button previous" id="example1_previous"><a
+                            v-on:click="eventSessionList.previousPage()"
+                            aria-controls="example1"
+                            data-dt-idx="0"
+                            tabindex="0">Previous</a>
+                    </li>
+
+                    <li v-for="(item, index) in 10"
+                        v-if="eventSessionList.pagination.page-5+index <= eventSessionList.pagination.totalPages && eventSessionList.pagination.page-5+index >= 1"
+                        class="paginate_button"
+                        v-bind:class="{active: eventSessionList.pagination.page-5+index == eventSessionList.pagination.page}"
+                    >
+                        <a v-on:click="eventSessionList.gotoPage(eventSessionList.pagination.page-5+index)"
+                           aria-controls="example1" data-dt-idx="1" tabindex="0">
+                            {{eventSessionList.pagination.page-5+index}}
+                        </a>
+                    </li>
+
+                    <li v-bind:class="{disabled: eventSessionList.pagination.page==eventSessionList.pagination.totalPages}"
+                        class="paginate_button next" id="example1_next"><a
+                            v-on:click="eventSessionList.nextPage()"
+                            aria-controls="example1"
+                            data-dt-idx="7"
+                            tabindex="0">Next</a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+</div>

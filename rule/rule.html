@@ -1,0 +1,217 @@
+<div id="ruleComponent" class="content-wrapper" style="min-height: 1170px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            规则列表
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row"></div>
+        <!-- info row -->
+        <div class="row invoice-info"></div>
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_length" id="example1_length"><label>Show <select
+                                        name="example1_length" aria-controls="example1" class="form-control input-sm"
+                                        v-model="pageSize" v-on:change="onPageSizeChange()">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select> entries</label></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <span id="example1_filter" class="dataTables_filter">
+                                    <!--<label>Search:<input type="search" class="form-control input-sm"-->
+                                        <!--placeholder="" aria-controls="example1" v-model="searchKeyWord" autocomplete="off"></label>-->
+                                <span style="float:right;">
+                                    <button class="btn btn-primary" v-on:click="newRuleModal()"><span
+                                            class="glyphicon glyphicon-plus-sign"></span> 新增规则</button>
+                                </span>
+                                <span class="clearfix"></span>
+
+                            </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered table-striped dataTable"
+                                           role="grid"
+                                           aria-describedby="example1_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-sort="ascending" aria-label="rule_id"
+                                                style="width: 127px;">规则ID
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="规则名称" style="width: 159px;">规则名称
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="规则版本" style="width: 140px;">规则版本
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="规则内容" style="width: 108px;">规则内容
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="内容类型" style="width: 76px;">内容类型
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="规则描述" style="width: 76px;">规则描述
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="风险分" style="width: 76px;">风险分
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="规则分类" style="width: 76px;">规则分类
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="规则标签" style="width: 76px;">规则标签
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="是否并行" style="width: 76px;">是否并行
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr role="row" v-bind:class="{even: index%2==0, odd: index%2==1 }"
+                                            v-for="(rule, index) in ruleList.items">
+                                            <td class="sorting_1"> {{ rule.id }}</td>
+                                            <td>{{ rule.name }}</td>
+                                            <td>{{ rule.version }}</td>
+                                            <td>{{ rule.content }}</td>
+                                            <td>{{ rule.type }}</td>
+                                            <td>{{ rule.comment }}</td>
+                                            <td>{{ rule.score }}</td>
+                                            <td>{{ rule.class }}</td>
+                                            <td>{{ rule.tag }}</td>
+                                            <td>{{ rule.parallel == 1 ? "Yes" : "No" }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+                                        Showing
+                                        {{ ruleList.currentPageStartIndex() }} to {{ ruleList.currentPageEndIndex() }}
+                                        of {{ ruleList.total() }} entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                                        <ul class="pagination">
+                                            <li v-bind:class="{disabled: ruleList.pagination.page==1}"
+                                                class="paginate_button previous" id="example1_previous"><a
+                                                    v-on:click="ruleList.previousPage()"
+                                                    aria-controls="example1"
+                                                    data-dt-idx="0"
+                                                    tabindex="0">Previous</a>
+                                            </li>
+
+                                            <li v-for="(item, index) in 10"
+                                                v-if="ruleList.pagination.page-5+index <= ruleList.pagination.totalPages && ruleList.pagination.page-5+index >= 1" class="paginate_button"
+                                                v-bind:class="{active: ruleList.pagination.page-5+index == ruleList.pagination.page}"
+                                            >
+                                                <a v-on:click="ruleList.gotoPage(ruleList.pagination.page-5+index)" aria-controls="example1" data-dt-idx="1" tabindex="0">
+                                                    {{ruleList.pagination.page-5+index}}
+                                                </a>
+                                            </li>
+
+                                            <li v-bind:class="{disabled: ruleList.pagination.page==ruleList.pagination.totalPages}"
+                                                class="paginate_button next" id="example1_next"><a
+                                                    v-on:click="ruleList.nextPage()"
+                                                    aria-controls="example1"
+                                                    data-dt-idx="7"
+                                                    tabindex="0">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+
+    <div class="modal" id="newRuleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增规则</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>规则名称</label>
+                            <input class="form-control" type="text" v-model="newRule.ruleName">
+                        </div>
+                        <div class="form-group">
+                            <label>规则版本</label>
+                            <input class="form-control" type="number" v-model="newRule.ruleVersion">
+                        </div>
+                        <div class="form-group">
+                            <label>规则内容</label>
+                            <textarea class="form-control" v-model="newRule.ruleContent"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>内容类型</label>
+                            <select class="form-control" v-model="newRule.ruleType">
+                                <option value="CypherQuery">CypherQuery</option>
+                                <option value="InfluxDB">InfluxDB</option>
+                                <option value="Script">Script</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>规则描述</label>
+                            <textarea class="form-control" v-model="newRule.ruleComment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>风险分</label>
+                            <input class="form-control" type="number" v-model="newRule.riskScore">
+                        </div>
+                        <div class="form-group">
+                            <label>规则标签(阈值预警/防刷/防盗卡)</label>
+                            <input class="form-control" type="text" v-model="newRule.ruleTags">
+                        </div>
+                        <div class="form-group">
+                            <label>规则分类(通用/业务预警/反欺诈)</label>
+                            <input class="form-control" type="text" v-model="newRule.ruleClass">
+                        </div>
+                        <div class="form-group">
+                            <label>是否并行(默认串行)</label>
+                            <select class="form-control" v-model="newRule.isParallel">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>规则状态(0:灰度/1:生效/2:失效)</label>
+                            <select class="form-control" v-model="newRule.ruleStatus">
+                                <option value="0">Grey</option>
+                                <option value="1">Active</option>
+                                <option value="2">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button v-on:click="createNewRule()" type="button" class="btn btn-primary">Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

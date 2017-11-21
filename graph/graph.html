@@ -1,0 +1,217 @@
+<div class="container">
+    <!--<section class="content-header">-->
+    <!--<h1>查询</h1>-->
+    <!--</section>-->
+    <h1></h1>
+    <div class="row">
+        <div class="col-sm-12"></div>
+    </div>
+    <form role="search" id="search-form">
+        <input type="hidden" class="form-control" title="queryBy" name="queryBy" id="search-form-query-by"
+               value="Email.email">
+        <div class="input-group input-group-lg">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="false" id="search-form-button">Email.email<span
+                        class="fa fa-caret-down"></span></button>
+                <ul class="dropdown-menu" id="search-form-dropdown">
+                    <li><a href="#">User.user_id</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Email.email</a></li>
+                    <li><a href="#">Mobile.mobile</a></li>
+                    <li class="divider"></li>
+                    <!--<li><a href="#">Card.card_token</a></li>-->
+                    <li class="divider"></li>
+                    <li><a href="#">Device.device_id</a></li>
+                    <li><a href="#">raw</a></li>
+                </ul>
+            </div>
+            <input type="text" class="form-control" title="query" name="query" id="search-form-query"
+                   data-provide="typeahead" autocomplete="off">
+            </div>
+    </form>
+    <h1></h1>
+    <div class="row">
+        <div class="col-sm-3">
+            <!-- Main content -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">info</h3>
+                </div>
+                <div class="box-body">
+                    <!--box1-->
+                    <div class="small-box bg-aqua" id="graph-info-box">
+                        <div class="inner left-small-box">
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            Graph info <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    <!--box2-->
+                    <div class="small-box bg-aqua">
+                        <div class="inner left-small-box">
+                            <h3></h3>
+                            <p></p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-send"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            User info <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- /.content -->
+        </div>
+        <div class="col-sm-9">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">chart</h3>
+                </div>
+                <div class="box-body">
+                    <div id="neo4jd3-canvas"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content Header (Page header) -->
+    <!--<section class="content-header">-->
+    <!--<h1>-->
+    <!--Top Navigation-->
+    <!--<small>Example 2.0</small>-->
+    <!--</h1>-->
+    <!--&lt;!&ndash;<ol class="breadcrumb">&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a href="#">Layout</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li class="active">Top Navigation</li>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ol>&ndash;&gt;-->
+    <!--</section>-->
+
+</div>
+<!-- neo4jd3  -->
+<script src="assets/static/neo4jd3/js/d3.min.js"></script>
+<script src="assets/static/neo4jd3/js/neo4jd3.js"></script>
+<script src="assets/static/bootstrap/js/bootstrap3-typeahead.min.js"></script>
+<script type="text/javascript">
+    var neo4jd3;
+    var neo4jd3Optios = {
+        highlight: [
+            {
+                class: 'Email',
+                property: 'email',
+                value: 'highlight@klook.com'
+            }
+        ],
+        icons: {
+            'User': 'user',
+            'Email': 'at',
+            'Mobile': 'phone',
+            'Device': 'desktop',
+            'Card': 'credit-card',
+            'PW': 'lock',
+//                'Ip': 'ip',
+            'zoomFit': 'arrows-alt',
+            'zoomIn': 'search-plus',
+            'zoomOut': 'search-minus'
+        },
+        images: {
+            'User': 'assets/static/neo4jd3/img/twemoji/1f600.svg',
+            'Email': 'assets/static/neo4jd3/img/twemoji/2709.svg',
+            'Mobile': 'assets/static/neo4jd3/img/twemoji/1f4e0.svg',
+            'Device': 'assets/static/neo4jd3/img/twemoji/1f4bb.svg',
+            'Card': 'assets/static/neo4jd3/img/twemoji/1f4b3.svg',
+            'PW': 'assets/static/neo4jd3/img/twemoji/1f511.svg',
+            'Ip': 'assets/static/neo4jd3/img/twemoji/1f4cd.svg',
+            'zoomFit': 'assets/static/neo4jd3/img/twemoji/2194.svg',
+            'zoomIn': 'assets/static/neo4jd3/img/twemoji/1f50d.svg',
+            'zoomOut': 'assets/static/neo4jd3/img/twemoji/1f50e.svg'
+        },
+        minCollision: 60,
+        neo4jData: null,
+        nodeRadius: 25,
+        onNodeClick: function (node) {
+            console.log('click on node: ' + JSON.stringify(node));
+        },
+        onRelationshipClick: function (relationship) {
+            console.log('click on relationship: ' + JSON.stringify(relationship));
+        },
+        onNodeDoubleClick: function (node) {
+            console.log('double click on node: ' + JSON.stringify(node));
+        },
+        onRelationshipDoubleClick: function (relationship) {
+            console.log('double click on relationship: ' + JSON.stringify(relationship));
+        },
+        zoomFit: true
+    };
+
+    function queryAndInitGraph(queryBy, query) {
+        $.ajax({
+                url: config.webApiBaseURL + "v1/mjwebapisrv/query",
+                method: "GET",
+                data: {
+                    queryBy: queryBy,
+                    query: query,
+                    depth: 10
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (!data.success) {
+                        alert(data.error.code + ":" + data.error.message);
+                        return
+                    }
+                    var $graphIndexBox = $("div#graph-info-box div.inner");
+                    $graphIndexBox.empty();
+                    $graphIndexBox.append(
+                        "<h5>Nodes: " + data.result.results[0].data[0].graph.nodes.length + "</h5>"
+                        + "<h5>RelationShips: " + data.result.results[0].data[0].graph.relationships.length + "</h5");
+                    debugData = data;
+                    if (data.result.results[0].data[0].graph.nodes.length == 0) {
+                        alert("没有数据");
+                        return
+                    }
+                    neo4jd3Optios.neo4jData = data.result;
+                    neo4jd3Optios.highlight = [
+                        {
+                            class: 'Email',
+                            property: 'email',
+                            value: query
+                        }
+                    ];
+                    neo4jd3 = new Neo4jd3('#neo4jd3-canvas', neo4jd3Optios);
+                },
+                statusCode: {
+                    500: function (data) {
+                        alert(data.responseText);
+                    }
+                }
+            }
+        );
+    };
+    // 默认图
+    queryAndInitGraph("default");
+    // dropdown点击事件
+    $("#search-form-dropdown li a").on("click", function (e) {
+        var selected = $(this).text();
+        console.log("selected:" + selected);
+        $("#search-form-button").html(selected + '<span class="fa fa-caret-down"></span>');
+        $("#search-form-query-by").val(selected);
+    });
+    // query 典型用户
+    $("#search-form-query").typeahead(
+        {source: ["vijay@willowoodhk.com"]}
+    );
+    // query绑定事件
+    $("#search-form").on("submit", function (e) {
+        var queryBy = $("#search-form-query-by").val();
+        var query = $("#search-form-query").val();
+        console.log("send queryBy:" + queryBy + ", query:" + query);
+        queryAndInitGraph(queryBy, query);
+        e.preventDefault();
+    });
+</script>
