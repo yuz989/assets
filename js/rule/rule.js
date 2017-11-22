@@ -5,7 +5,8 @@ var Rule = function() {
             ruleList: new PaginableComponent({url: '/v1/mjwebapisrv/rules'}),
             pageSize: "25",
             searchKeyWord: "",
-            newRule: {}
+            newRule: {},
+            editRule: {}
         },
         mounted: function() {
             this.ruleList.pagination.pageSize = Number(this.pageSize);
@@ -17,11 +18,15 @@ var Rule = function() {
                 this.ruleList.reloadPage();
             },
             newRuleModal: function() {
-                $('#newRuleModal').modal('show')
+                $('#newRuleModal').modal('show');
+            },
+            editRuleModal: function(rule) {
+                this.editRule = Object.create(rule);
+                $('#editRuleModal').modal('show');
             },
             createNewRule: function() {
                 var self = this;
-                var rule = this.newRule;
+                var rule = self.newRule;
                 var body = {
                     rule_name: rule.ruleName,
                     rule_version: Number(rule.ruleVersion),
@@ -46,6 +51,42 @@ var Rule = function() {
                     alert('error');
                     $('#newRuleModal').modal('hide');
                 });
+            },
+            saveEditRule: function() {
+                var self = this;
+                var body = {
+                    rule_name: this.editRule.name,
+                    rule_version: Number(this.editRule.version),
+                    rule_content: this.editRule.content,
+                    rule_type: this.editRule.type,
+                    rule_comment: this.editRule.comment,
+                    risk_score: Number(this.editRule.score),
+                    rule_tags: this.editRule.tag,
+                    rule_class: this.editRule.class,
+                    is_parallel: Number(this.editRule.parallel),
+                    rule_status: Number(this.editRule.status)
+                };
+
+                App.network.put('/v1/mjwebapisrv/rules/' + this.editRule.id.toString(), {
+                    data: body
+                }).then(function(response){
+                    $('#editRuleModal').modal('hide');
+                    self.ruleList.reloadPage();
+
+                }).catch(function(response) {
+                    alert("error");
+                    $('#editRuleModal').modal('hide');
+                });
+            },
+            toRuleStatus: function(status) {
+                switch(status) {
+                    case 0:
+                        return '灰度';
+                    case 1:
+                        return '生效';
+                    case 2:
+                        return '失效';
+                }
             }
         }
     });

@@ -77,6 +77,12 @@
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                 colspan="1" aria-label="是否并行" style="width: 76px;">是否并行
                                             </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="规则狀態" style="width: 76px;">规则狀態
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" style="width: 76px;">
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -92,6 +98,8 @@
                                             <td>{{ rule.class }}</td>
                                             <td>{{ rule.tag }}</td>
                                             <td>{{ rule.parallel == 1 ? "Yes" : "No" }}</td>
+                                            <td>{{ toRuleStatus(rule.status) }}</td>
+                                            <td><button v-on:click="editRuleModal(rule)" class="btn btn-primary"><span class="glyphicon glyphicon glyphicon-pencil"></span> 编辑</button></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -209,6 +217,76 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button v-on:click="createNewRule()" type="button" class="btn btn-primary">Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑规则</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>规则名称</label>
+                            <input class="form-control" type="text" v-model="editRule.name">
+                        </div>
+                        <div class="form-group">
+                            <label>规则版本</label>
+                            <input class="form-control" type="number" v-model="editRule.version">
+                        </div>
+                        <div class="form-group">
+                            <label>规则内容</label>
+                            <textarea class="form-control" v-model="editRule.content"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>内容类型</label>
+                            <select class="form-control" v-model="editRule.type">
+                                <option value="CypherQuery">CypherQuery</option>
+                                <option value="InfluxDB">InfluxDB</option>
+                                <option value="Script">Script</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>规则描述</label>
+                            <textarea class="form-control" v-model="editRule.comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>风险分</label>
+                            <input class="form-control" type="number" v-model="editRule.score">
+                        </div>
+                        <div class="form-group">
+                            <label>规则标签(阈值预警/防刷/防盗卡)</label>
+                            <input class="form-control" type="text" v-model="editRule.tag">
+                        </div>
+                        <div class="form-group">
+                            <label>规则分类(通用/业务预警/反欺诈)</label>
+                            <input class="form-control" type="text" v-model="editRule.class">
+                        </div>
+                        <div class="form-group">
+                            <label>是否并行(默认串行)</label>
+                            <select class="form-control" v-model="editRule.parallel">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>规则状态(0:灰度/1:生效/2:失效)</label>
+                            <select class="form-control" v-model="editRule.status">
+                                <option value="0">灰度</option>
+                                <option value="1">生效</option>
+                                <option value="2">失效</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button v-on:click="saveEditRule()" type="button" class="btn btn-primary">Save
                     </button>
                 </div>
             </div>

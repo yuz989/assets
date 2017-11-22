@@ -21,8 +21,12 @@ var App = {
                 success: function(d){},
                 fail: function(d){}
             };
-            path = '/v1/mjwebsrv' + path
-            return axios.get(path, param).then(function(response) {
+
+            param = param || {
+                mode: 'no-cors'
+            };
+
+            return axios.get(this._path(path), param).then(function(response) {
                 if(response.data.success) {
                     callback.success(response.data.result);
                 } else {
@@ -33,18 +37,33 @@ var App = {
                 alert('error');
             });
         },
-        post: function(url, param) {
-            var requestURL = App.config.webApiBaseURL + url;
-            return axios.post(
-                requestURL,
-                param.data
-            ).then(function(r) {
+        post: function(path, param) {
+            return axios({
+                method: 'post',
+                url: this._path(path),
+                data: param.data
+            }).then(function(r) {
                 //refine
                 console.log(r);
             }).catch(function(r) {
                 //refine
                 alert('error');
-            })
+            });
+        },
+        put: function(path, param) {
+            return axios({
+                method: 'put',
+                url: this._path(path),
+                data: param.data
+            }).then(function(r) {
+                console.log(r);
+            }).catch(function(r) {
+                //refine
+                alert('error');
+            });
+        },
+        _path: function(path) {
+            return 'http://localhost:10032' + path;
         }
     }
 };

@@ -11,60 +11,77 @@
         <div class="row invoice-info"></div>
         <div class="row">
             <div class="col-xs-12 table-responsive">
-            <div class="col-sm-6">
-                <div class="dataTables_length" id="example1_length">
-                    <label>Show
-                        <select name="example1_length" aria-controls="example1" class="form-control input-sm"
-                                v-model="pageSize" v-on:change="onPageSizeChange()">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entries
-                    </label>
+                <div class="col-xs-12">
+                    <div class="dataTables_length" id="example1_length">
+                        <label>Show
+                            <select name="example1_length" aria-controls="example1" class="form-control input-sm"
+                                    v-model="pageSize" v-on:change="onPageSizeChange()">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> entries
+                        </label>
+                    </div>
+                    <span style="float:right;">
+                                    <button class="btn btn-primary" v-on:click="newEventModal()"><span
+                                            class="glyphicon glyphicon-plus"></span> 新增事件</button>
+                                </span>
+                    <span class="clearfix"></span>
                 </div>
-            </div>
-            <div class="col-sm-6">
-            </div>
-            <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                <thead>
-                <tr role="row">
-                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                        aria-sort="ascending" aria-label="事件ID">事件ID
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                        aria-label="所属事件组">所属事件组
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件名称">
-                        事件名称
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件说明">
-                        事件描述
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                        aria-label="事件重要性">事件重要性
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                        aria-label="低风险基准分">低风险基准分
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                        aria-label="高风险基准分">高风险基准分
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr role="row" v-bind:class="{even: index%2==0, odd: index%2==1 }"
-                    v-for="(event, index) in eventList.items">
-                    <td>{{event.event_id}}</td>
-                    <td>{{event.event_group}}</td>
-                    <td>{{event.event_name}}</td>
-                    <td>{{event.event_comment}}</td>
-                    <td>{{event.event_priority}}</td>
-                    <td>{{event.risk_score_low}}</td>
-                    <td>{{event.risk_score_high}}</td>
-                </tr>
-                </tbody>
-            </table>
+                <div class="col-sm-6">
+                </div>
+                <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                    <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-sort="ascending" aria-label="事件ID">事件ID
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="所属事件组">所属事件组
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="事件名称">
+                            事件名称
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="事件说明">
+                            事件描述
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="事件重要性">事件重要性
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="低风险基准分">低风险基准分
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="高风险基准分">高风险基准分
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="規則個數">規則個數
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                            aria-label="編輯">編輯
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr role="row" v-bind:class="{even: index%2==0, odd: index%2==1 }"
+                        v-for="(event, index) in eventList.items">
+                        <td>{{event.event_id}}</td>
+                        <td>{{event.event_group}}</td>
+                        <td>{{event.event_name}}</td>
+                        <td>{{event.event_comment}}</td>
+                        <td>{{event.event_priority}}</td>
+                        <td>{{event.risk_score_low}}</td>
+                        <td>{{event.risk_score_high}}</td>
+                        <td>{{event.num_rules}}</td>
+                        <td>
+                            <button class="btn btn-primary" v-on:click="editEventModal(event)">Edit</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="row">
@@ -110,4 +127,92 @@
     </section>
 
     <div class="clearfix"></div>
+
+    <div class="modal" id="newEventModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增事件</h5>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="form-group">
+                            <label>事件名称</label>
+                            <input class="form-control" type="text" v-model="newEvent.eventName">
+                        </div>
+                        <div class="form-group">
+                            <label>事件说明</label>
+                            <textarea class="form-control" type="number" v-model="newEvent.eventComment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>事件重要性</label>
+                            <input class="form-control" type="number" v-model="newEvent.eventPriority">
+                        </div>
+                        <div class="form-group">
+                            <label>低风险基准分</label>
+                            <input class="form-control" type="number" v-model="newEvent.riskScoreLow">
+                        </div>
+                        <div class="form-group">
+                            <label>高风险基准分</label>
+                            <input class="form-control" type="number" v-model="newEvent.riskScoreHigh">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button v-on:click="createNewEvent()" type="button" class="btn btn-primary">Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="editEventModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增事件</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>事件名称</label>
+                        <input class="form-control" type="text" v-model="toBeEditedEvent.event_name">
+                    </div>
+                    <div class="form-group">
+                        <label>事件说明</label>
+                        <textarea class="form-control" type="number" v-model="toBeEditedEvent.event_comment"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>事件重要性</label>
+                        <input class="form-control" type="number" v-model="toBeEditedEvent.event_priority">
+                    </div>
+                    <div class="form-group">
+                        <label>低风险基准分</label>
+                        <input class="form-control" type="number" v-model="toBeEditedEvent.risk_score_low">
+                    </div>
+                    <div class="form-group">
+                        <label>高风险基准分</label>
+                        <input class="form-control" type="number" v-model="toBeEditedEvent.risk_score_high">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2">
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                        </div>
+                        <div class="col-xs-10">
+                            <select class="form-control" multiple>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button v-on:click="createNewEvent()" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
