@@ -1,5 +1,18 @@
 Vue.component('paginate', VuejsPaginate);
 
+var Widget = function() {
+    this.alert = {
+        message: "",
+        show: function(message, delay) {
+            this.message = message;
+            $('#widget-alert').show();
+            setTimeout(function() {
+                $('#widget-alert').hide();
+            }, delay || 2000)
+        }
+    };
+};
+
 var App = {
     init: function(config) {
         this.config = config || {
@@ -14,6 +27,13 @@ var App = {
             'assets/risk/eventsnap.html': EventSession,
             'assets/list/list.html': RiskList
         };
+
+        this.Vue = new Vue({
+            el: "#VueApp",
+            data: {
+                widget: new Widget()
+            },
+        })
     },
     network: {
         fetch: function(path, callback, param) {
@@ -32,9 +52,8 @@ var App = {
                 } else {
                     callback.fail(response.data.error);
                 }
-            }).catch(function(response) {
-                //refine
-                alert('error');
+            }).catch(function(r) {
+                App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
         },
         post: function(path, param) {
@@ -42,12 +61,8 @@ var App = {
                 method: 'post',
                 url: this._path(path),
                 data: param.data
-            }).then(function(r) {
-                //refine
-                console.log(r);
-            }).catch(function(r) {
-                //refine
-                alert('error');
+            }).catch(function(response) {
+                App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
         },
         put: function(path, param) {
@@ -55,15 +70,17 @@ var App = {
                 method: 'put',
                 url: this._path(path),
                 data: param.data
-            }).then(function(r) {
-                console.log(r);
             }).catch(function(r) {
-                //refine
-                alert('error');
+                App.Vue.widget.alert.show(r.response ? r.response.status + r.response.statusText : response, 5000);
             });
         },
         _path: function(path) {
             return '/v1/mjwebsrv' + path;
+        }
+    },
+    widget: {
+        alert: function(message, delay) {
+            $("#widget-alert").alert();
         }
     }
 };

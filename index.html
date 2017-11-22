@@ -59,7 +59,8 @@
     </style>
 </head>
 <body class="skin-blue-light layout-top-nav" style="height: auto; min-height: 100%;">
-<div class="wrapper" style="height: auto; min-height: 100%;" >
+<div id="VueApp">
+    <div class="wrapper" style="height: auto; min-height: 100%;" >
     <header class="main-header">
         <nav class="navbar navbar-static-top">
             <div class="container">
@@ -137,6 +138,10 @@
         </div>
     </footer>
 </div>
+</div>
+    <div id="widget-alert" class="col-xs-12 col-sm-4 col-sm-offset-4 alert alert-error fade in" role="alert" style="position:fixed;bottom:0px;text-align:center;display:none;">
+        <strong>ERROR:</strong> {{widget.alert.message}}
+    </div>
 </div>
 <!-- jQuery 3 -->
 <script src="assets/static/jquery/jquery.min.js"></script>
