@@ -63,7 +63,7 @@ var App = {
             });
         },
         _path: function(path) {
-            return '/v1/mjwebsrv' + path;
+            return 'http://localhost:10032' + path;
         }
     }
 };
