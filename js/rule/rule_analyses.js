@@ -30,7 +30,8 @@ var RuleAnalysis = function() {
         methods: {
             selectEvent: function() {
                 if(this.searchFilter.event_id == 0) {
-                    this.searchFilter.rule_id = 0
+                    this.searchFilter.rule_id = 0;
+                    this.eventRules = [];
                 } else {
                     //!
                     for(var i=0; i<this.eventRules.length; i++) {
