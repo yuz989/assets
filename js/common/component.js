@@ -157,7 +157,7 @@ var PaginableComponent = PaginableComponent || function(param) {
     };
 
     this.getNextPageNumber = function() {
-        return this.pagination.page;
+        return this.pagination.page + 1;
     };
 
     this.nextPage = function(param) {
