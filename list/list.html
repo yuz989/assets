@@ -217,19 +217,27 @@
                 </div>
                 <div class="modal-body">
                     <form class="form">
-                        <label>List Type</label>
-                        <select class="form-control" name="list_type" v-model="tables.account.newItem.list_type">
-                            <option value="black">black</option>
-                            <option value="white">white</option>
-                            <option value="grey">grey</option>
-                        </select>
-                        <label>Account Type</label>
-                        <input class="form-control" name="account_type" v-model="tables.account.newItem.account_type">
-                        <label>Account ID</label>
-                        <input class="form-control" type="number" name="account_id"
-                               v-model="tables.account.newItem.account_id">
-                        <label>List Comment</label>
-                        <textarea class="form-control" v-model="tables.account.newItem.list_comment"></textarea>
+                        <div class="form-group">
+                            <label>List Type</label>
+                            <select class="form-control" name="list_type" v-model="tables.account.newItem.list_type">
+                                <option value="black">black</option>
+                                <option value="white">white</option>
+                                <option value="grey">grey</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Type</label>
+                            <input class="form-control" name="account_type" v-model="tables.account.newItem.account_type">
+                        </div>
+                        <div class="form-group">
+                            <label>Account ID</label>
+                            <input class="form-control" type="number" name="account_id"
+                                   v-model="tables.account.newItem.account_id">
+                        </div>
+                        <div class="form-group">
+                            <label>List Comment</label>
+                            <textarea class="form-control" v-model="tables.account.newItem.list_comment"></textarea>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -250,16 +258,22 @@
                 </div>
                 <div class="modal-body">
                     <form class="form">
-                        <label>List Type</label>
-                        <select class="form-control" name="list_type">
-                            <option value="black">black</option>
-                            <option value="white">white</option>
-                            <option value="grey">grey</option>
-                        </select>
-                        <label>IP</label>
-                        <input class="form-control" name="account_type">
-                        <label>List Comment</label>
-                        <textarea class="form-control"></textarea>
+                        <div class="form-group">
+                            <label>List Type</label>
+                            <select class="form-control" name="list_type">
+                                <option value="black">black</option>
+                                <option value="white">white</option>
+                                <option value="grey">grey</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>IP</label>
+                            <input class="form-control" name="account_type">
+                        </div>
+                        <div class="form-group">
+                            <label>List Comment</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -278,18 +292,26 @@
                 </div>
                 <div class="modal-body">
                     <form class="form">
-                        <label>List Type</label>
-                        <select class="form-control" name="list_type">
-                            <option value="black">black</option>
-                            <option value="white">white</option>
-                            <option value="grey">grey</option>
-                        </select>
-                        <label>Device Type</label>
-                        <input class="form-control" name="device_type">
-                        <label>Device ID</label>
-                        <input class="form-control" type="number" name="device_id">
-                        <label>List Comment</label>
-                        <textarea class="form-control" name="list_comment"></textarea>
+                        <div class="form-group">
+                            <label>List Type</label>
+                            <select class="form-control" name="list_type">
+                                <option value="black">black</option>
+                                <option value="white">white</option>
+                                <option value="grey">grey</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Device Type</label>
+                            <input class="form-control" name="device_type">
+                        </div>
+                        <div class="form-group">
+                            <label>Device ID</label>
+                            <input class="form-control" type="number" name="device_id">
+                        </div>
+                        <div class="form-group">
+                            <label>List Comment</label>
+                            <textarea class="form-control" name="list_comment"></textarea>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">

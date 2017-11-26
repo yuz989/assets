@@ -197,8 +197,4 @@ var PaginableComponent = PaginableComponent || function(param) {
             selectedItemIndices: {}
         };
     };
-
-    this.removeSelectedItems = function(param) {
-        var self = this;
-    };
 };
