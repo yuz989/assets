@@ -144,12 +144,20 @@ var PaginableComponent = PaginableComponent || function(param) {
 
     this.lastPage = function(param) {
 //        this.gotoPage(-1, param);
-    }
+    };
+
+    this.getPreviousPageNumber = function() {
+        return (this.pagination.page - 1 > 0 ? this.pagination.page - 1 : 1);
+    };
 
     this.previousPage = function(param) {
         if(this.pagination.page==1) return;
 
         this.gotoPage(this.pagination.page - 1, param);
+    };
+
+    this.getNextPageNumber = function() {
+        return this.pagination.page;
     };
 
     this.nextPage = function(param) {

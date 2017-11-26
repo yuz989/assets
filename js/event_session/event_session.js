@@ -24,13 +24,13 @@ var EventSession = function() {
             });
         },
         methods: {
-            onSearchClick: function() {
+            onSearchClick: function(page) {
                 this.filters.start_date = $('#filter_start_date').val()
                 this.filters.end_date = $('#filter_end_date').val()
                 if(this.filters.event_session_code != '') {
                     this.filters.event_session_code_type = 'order';
                 }
-                eventSession.eventSessionList.gotoPage(1, {
+                eventSession.eventSessionList.gotoPage(page, {
                     filters: this.filters
                 });
             },

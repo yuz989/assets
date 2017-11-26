@@ -22,7 +22,7 @@
             <label>訂單ID</label>
             <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="訂單ID" v-model="filters.event_session_code">
 
-            <button v-on:click="onSearchClick()" type="submit" class="btn btn-primary">检索</button>
+            <button v-on:click="onSearchClick(1)" type="submit" class="btn btn-primary">检索</button>
         </form>
     </div>
 
@@ -92,7 +92,7 @@
                 <ul class="pagination">
                     <li v-bind:class="{disabled: eventSessionList.pagination.page==1}"
                         class="paginate_button previous" id="example1_previous"><a
-                            v-on:click="eventSessionList.previousPage()"
+                            v-on:click="onSearchClick(eventSessionList.getPreviousPageNumber())"
                             aria-controls="example1"
                             data-dt-idx="0"
                             tabindex="0">Previous</a>
@@ -103,7 +103,7 @@
                         class="paginate_button"
                         v-bind:class="{active: eventSessionList.pagination.page-5+index == eventSessionList.pagination.page}"
                     >
-                        <a v-on:click="eventSessionList.gotoPage(eventSessionList.pagination.page-5+index)"
+                        <a v-on:click="onSearchClick(eventSessionList.pagination.page-5+index)"
                            aria-controls="example1" data-dt-idx="1" tabindex="0">
                             {{eventSessionList.pagination.page-5+index}}
                         </a>
@@ -111,7 +111,7 @@
 
                     <li v-bind:class="{disabled: eventSessionList.pagination.page==eventSessionList.pagination.totalPages}"
                         class="paginate_button next" id="example1_next"><a
-                            v-on:click="eventSessionList.nextPage()"
+                            v-on:click="onSearchClick(eventSessionList.getNextPageNumber())"
                             aria-controls="example1"
                             data-dt-idx="7"
                             tabindex="0">Next</a>
