@@ -108,8 +108,8 @@ var App = {
 
         },
         _path: function(path) {
-            //return '/v1/mjwebsrv' + path;
-            return 'http://127.0.0.1:10032' + path;
+            return '/v1/mjwebsrv' + path;
+//            return 'http://127.0.0.1:10032' + path;
         }
     },
     widget: {
