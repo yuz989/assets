@@ -133,7 +133,7 @@
                                                 </a>
                                             </li>
 
-                                            <li v-bind:class="{disabled: ruleList.pagination.page==ruleList.pagination.totalPages}"
+                                            <li v-bind:class="{disabled: ruleList.pagination.page==ruleList.pagination.totalPages || ruleList.pagination.totalPages == 0}"
                                                 class="paginate_button next" id="example1_next"><a
                                                     v-on:click="ruleList.nextPage()"
                                                     aria-controls="example1"

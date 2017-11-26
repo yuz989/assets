@@ -114,7 +114,7 @@
                             </a>
                         </li>
 
-                        <li v-bind:class="{disabled: eventList.pagination.page==eventList.pagination.totalPages}"
+                        <li v-bind:class="{disabled: eventList.pagination.page==eventList.pagination.totalPages || eventList.pagination.totalPages == 0}"
                             class="paginate_button next" id="example1_next"><a
                                 v-on:click="eventList.nextPage()"
                                 aria-controls="example1"

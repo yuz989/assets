@@ -1,4 +1,5 @@
 Vue.component('paginate', VuejsPaginate);
+Vue.use(VeeValidate);
 
 var Widget = function() {
     this.alert = {
@@ -21,6 +22,7 @@ var App = {
         this.config.vueBootstrapMap = {
             'assets/rule/event.html': Event,
             'assets/rule/rule.html': Rule,
+            'assets/rule/eventrules.html': EventRule,
             'assets/rule/ruleresult.html': RuleAnalysis,
             'assets/graph/graph.html': Graph,
             'assets/risk/riskmanualaudit.html': RiskAudit,
@@ -57,30 +59,62 @@ var App = {
             });
         },
         post: function(path, param) {
+            param = param || {};
+            var callback = param.callback || {
+                success: function(d){},
+                fail: function(d){}
+            };
             return axios({
                 method: 'post',
                 url: this._path(path),
                 data: param.data
+            }).then(function(response) {
+                if(response.data.success) {
+                    callback.success(response.data.result);
+                } else {
+                    callback.fail(response.data.error);
+                }
             }).catch(function(response) {
                 App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
         },
         put: function(path, param) {
+            param = param || {};
+            var callback = param.callback || {
+                success: function(d){},
+                fail: function(d){}
+            };
+
             return axios({
                 method: 'put',
                 url: this._path(path),
                 data: param.data
-            }).catch(function(r) {
-                App.Vue.widget.alert.show(r.response ? r.response.status + r.response.statusText : response, 5000);
+            }).then(function(response) {
+                if(response.data.success) {
+                    callback.success(response.data.result);
+                  } else {
+                    callback.fail(response.data.error);
+                }
+            }).catch(function(response) {
+                App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
         },
+        del: function(pathparam) {
+            param = param || {};
+            var callback = param.callback || {
+                success: function(d){},
+                fail: function(d){}
+            };
+
+        },
         _path: function(path) {
-            return '/v1/mjwebsrv' + path;
+            //return '/v1/mjwebsrv' + path;
+            return 'http://127.0.0.1:10032' + path;
         }
     },
     widget: {
         alert: function(message, delay) {
-            $("#widget-alert").alert();
+            $("#widget-alert").alert.show(message, delay);
         }
     }
 };

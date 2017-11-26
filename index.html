@@ -56,6 +56,10 @@
     li.paginate_button:hover {
         cursor: pointer;
     }
+
+    .model-select-item:hover {
+        cursor: pointer;
+    }
     </style>
 </head>
 <body class="skin-blue-light layout-top-nav" style="height: auto; min-height: 100%;">
@@ -97,7 +101,7 @@
                                 <li><a href="javascript:loadhtmlToContainer('assets/rule/event.html')">事件定义</a></li>
                                 <li><a href="javascript:loadhtmlToContainer('assets/rule/rule.html')">规则定义</a></li>
                                 <li class="divider"></li>
-                                <!--<li><a href="javascript:loadhtmlToContainer('assets/rule/eventrules.html')">风控策略设置</a></li>-->
+                                <li><a href="javascript:loadhtmlToContainer('assets/rule/eventrules.html')">风控策略设置</a></li>
                                 <li><a href="javascript:loadhtmlToContainer('assets/rule/ruleresult.html')">策略效果评估</a></li>
                                 <li class="divider"></li>
                                 <li><a href="javascript:loadhtmlToContainer('assets/rule/ruletest.html')">规则灰度测试</a></li>
@@ -160,6 +164,7 @@
 <script src="assets/node_modules/axios/dist/axios.min.js"></script>
 <script src="assets/node_modules/vuejs-paginate/dist/index.js"></script>
 <script src="assets/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/node_modules/vee-validate/dist/vee-validate.min.js"></script>
 
 <!-- vue app components-->
 <script src="assets/js/common/component.js"></script>
@@ -167,6 +172,7 @@
 <script src="assets/js/event/event.js"></script>
 <script src="assets/js/event_session/event_session.js"></script>
 <script src="assets/js/rule/rule.js"></script>
+<script src="assets/js/event_rule/event_rule.js"></script>
 <script src="assets/js/list/list.js"></script>
 <script src="assets/js/risk/risk_audit.js"></script>
 <script src="assets/js/rule/rule_analyses.js"></script>

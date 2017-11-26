@@ -1,161 +1,308 @@
-
-<div class="content-wrapper" style="min-height: 990px;">
-      <section class="content-header">
+<div id="eventRuleComponent" class="content-wrapper" style="min-height: 990px;">
+    <section class="content-header">
         <h1>
-                风控策略设置
-          <small></small>
+            风控策略设置
+            <small></small>
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">List</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">List</li>
         </ol>
-      </section>
-      
-      <!-- Main content -->
-      <section class="content">
+    </section>
+    <section class="content">
         <div class="row">
-          <div class="col-md-3">
-                 <!--
-            <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
-        -->
-            <div class="box box-solid">
-              <div class="box-header with-border">
-                <h3 class="box-title">事件列表</h3>
-      
-                <div class="box-tools">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="box-body no-padding">
-                <ul class="nav nav-pills nav-stacked">
-                    <!-- http://fontawesome.io/cheatsheet/ -->
-                  <li class="active"><a href="#"><i class="fa fa-gears"></i> 下单</a></li>
-                  <li><a href="#"><i class="fa fa-gears"></i> 支付</a></li>
-                  <li><a href="#"><i class="fa fa-gears"></i> 注册</a></li>
-                  <li><a href="#"><i class="fa fa-gears"></i> 登录</a>
-                  </li>
-                  <li><a href="#"><i class="fa fa-gears"></i> 退款</a></li>
-                  <li><a href="#"><i class="fa fa-gears"></i> 还原...</a></li>
-                </ul>
-              </div>
-              <!-- /.box-body -->
-            </div>
-            <!-- /. box -->
-            <div class="box box-solid">
-              <div class="box-header with-border">
-                <h3 class="box-title"></h3>
-      
-                <div class="box-tools">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">下单事件</h3>
-      
-                <div class="box-tools pull-right">
-                  <div class="has-feedback">
-                    <input type="text" class="form-control input-sm" placeholder="Search Mail">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                  </div>
-                </div>
-                <!-- /.box-tools -->
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body no-padding">
-                <div class="mailbox-controls">
-                  <!-- Check all button -->
-                  <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                  </button>
-                  <div class="btn-group">
-                    <!-- <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button> -->
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-plus"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-minus"></i></button> 
-                  </div>
-                  <!-- /.btn-group -->
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                  <div class="pull-right">
-                    1-3/1
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                    </div>
-                    <!-- /.btn-group -->
-                  </div>
-                  <!-- /.pull-right -->
-                </div>
-                <div class="table-responsive mailbox-messages">
-                  <table class="table table-hover table-striped">
-                    <tbody>
-                    <tr>
-                      <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
-                      <td class="mailbox-star"><a href="#"><i class="fa fa-circle text-black"></i></a></td>
-                      <td class="mailbox-name"><a href="read-mail.html">规则1</a></td>
-                      <td class="mailbox-subject"><b>规则的JSON字符串</b> - 备注...
-                      </td>
-                      <td class="mailbox-attachment"></td>
-                      <td class="mailbox-date">2017-11-02 09:18</td>
-                    </tr>
-                    <tr>
-                      <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
-                      <td class="mailbox-star"><a href="#"><i class="fa fa-circle text-black"></i></a></td>
-                      <td class="mailbox-name"><a href="read-mail.html">规则2</a></td>
-                      <td class="mailbox-subject"><b>规则的JSON字符串</b> - ...
-                      </td>
-                      <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                      <td class="mailbox-date">2017-11-02 09:18</td>
-                    </tr>
-                    <tr>
-                      <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
-                      <td class="mailbox-star"><a href="#"><i class="fa fa-circle-o text-black"></i></a></td>
-                      <td class="mailbox-name"><a href="read-mail.html">规则3</a></td>
-                      <td class="mailbox-subject"><b>规则的JSON字符串</b> - ...
-                      </td>
-                      <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                      <td class="mailbox-date">2017-11-02 09:18</td>
-                    </tr>
+            <div class="col-md-3">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">事件列表</h3>
 
-                    </tbody>
-                  </table>
-                  <!-- /.table -->
-                </div>
-                <!-- /.mail-box-messages -->
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer no-padding">
-                <div class="mailbox-controls">
-                  <!-- Check all button -->
-                  <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                  </button>
-                  <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-plus"></i></button>
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-minus"></i></button> 
-                  </div>
-                  <!-- /.btn-group -->
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                  <div class="pull-right">
-                    1-3/1
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                        </div>
                     </div>
-                    <!-- /.btn-group -->
-                  </div>
-                  <!-- /.pull-right -->
+                    <div class="box-body no-padding">
+                        <div class="has-feedback">
+                            <input type="text" class="form-control input-sm" placeholder="Search by Id" v-model="searchEventKeyWord"
+                                   v-on:keyup.enter="searchEvent()"
+                                   v-on:keyup.delete="checkEmptySearch()"
+                            >
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                        <ul class="nav nav-pills nav-stacked" style="overflow: scroll;">
+
+                            <li v-if="eventList.items.length==0"><a><span>no events</span></a></li>
+
+                            <li v-for="event, index in eventList.items">
+                                <a v-on:click="selectEvent(index)">
+                                    <i class="fa" v-bind:class="{'fa-circle': event._selected == true, 'fa-circle-o': event._selected != true}"></i>
+                                    {{event.event_name}} <span style="color:grey;"> - {{event.event_id}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-              </div>
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"></h3>
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /. box -->
-          </div>
-          <!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{selectedEvent.event_name}}</h3>
+                        <div class="box-tools pull-right">
+                            <!--<div class="has-feedback">-->
+                                <!--<input type="text" class="form-control input-sm" placeholder="Search ID">-->
+                                <!--<span class="glyphicon glyphicon-search form-control-feedback"></span>-->
+                            <!--</div>-->
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="mailbox-controls"></div>
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <td><input type="checkbox" v-model="ruleList.status.isAllSelected" v-on:change="ruleList.toggleSelectAll()"></td>
+                                    <td>规则ID</td>
+                                    <td>规则名称</td>
+                                    <td>规则版本</td>
+                                    <td>内容类型</td>
+                                    <td>规则描述</td>
+                                    <td>风险分</td>
+                                    <td>是否并行</td>
+                                    <td>规则状态</td>
+                                    <td>编辑</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(rule, index) in ruleList.items">
+                                    <td><input type="checkbox" v-model="rule._selected" v-on:change="ruleList.toggleSelectedItem(index)"></td>
+                                    <td>{{rule.rule_id}}</td>
+                                    <td>{{rule.rule_name}}</td>
+                                    <td>{{rule.rule_version}}</td>
+                                    <td>{{rule.rule_type}}</td>
+                                    <td>{{rule.rule_comment}}</td>
+                                    <td>{{rule.risk_score}}</td>
+                                    <td>{{rule.is_parallel == 1 ? '是' : '否'}}</td>
+                                    <td>{{_getRuleStatus(rule.rule_status)}}</td>
+                                    <td><button class="btn btn-primary" v-on:click="editRuleModal(rule)">
+                                        <span class="glyphicon glyphicon glyphicon-pencil"></span>
+                                    </button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <div class="btn-group">
+                                <button v-on:click="addRuleToEventModal()"
+                                        v-bind:disabled="selectedEvent.event_id < 0 || ruleList.isLoading()"
+                                        type="button" class="btn btn-default btn-sm">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                <button v-on:click="removeRuleFromEventModal()"
+                                        v-bind:disabled="selectedEvent.event_id < 0 || ruleList.isLoading() || ruleList.numSelectedItems() == 0"
+                                        type="button" class="btn btn-default btn-sm">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button v-on:click="ruleList.reloadPage()" v-bind:disabled="selectedEvent.event_id < 0 || ruleList.isLoading()"
+                                type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-refresh"
+                                      v-bind:class="{spinning: ruleList.isLoading()}"></span>
+                            </button>
+                            <div class="pull-right">
+                                {{ruleList.currentPageStartIndex()}} -
+                                {{ruleList.currentPageEndIndex()}} /
+                                {{ruleList.pagination.totalPages}}
+                                <div class="btn-group">
+                                    <button v-on:click="ruleList.previousPage()"
+                                            v-bind:disabled="ruleList.isLoading() || ruleList.pagination.page == 1"
+                                            type="button" class="btn btn-default btn-sm"><i
+                                            class="fa fa-chevron-left"></i></button>
+                                    <button v-on:click="ruleList.nextPage()"
+                                            v-bind:disabled="ruleList.isLoading() || ruleList.pagination.page == ruleList.pagination.totalPages || ruleList.pagination.total == 0"
+                                            type="button" class="btn btn-default btn-sm"><i
+                                            class="fa fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /. box -->
+            </div>
+            <!-- /.col -->
         </div>
         <!-- /.row -->
-      
-      </section>
-      <!-- /.content -->
-      </div>
+
+    </section>
+    <!-- /.content -->
+
+    <div class="modal" id="addRuleModal" tabindex="-1" role="dialog"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增规则</h5>
+                </div>
+                <div class="modal-body" v-show="addRuleModalStep == 1">
+                    <div class="pull-right">
+                        {{addRuleModalList.currentPageStartIndex()}} -
+                        {{addRuleModalList.currentPageEndIndex()}} /
+                        {{addRuleModalList.pagination.totalPages}}
+                        <div class="btn-group">
+                            <button v-on:click="addRuleModalList.previousPage()"
+                                    v-bind:disabled="addRuleModalList.isLoading() || addRuleModalList.pagination.page == 1"
+                                    type="button" class="btn btn-default btn-sm"><i
+                                    class="fa fa-chevron-left"></i></button>
+                            <button v-on:click="addRuleModalList.nextPage()"
+                                    v-bind:disabled="addRuleModalList.isLoading() || addRuleModalList.pagination.page == addRuleModalList.pagination.totalPages || addRuleModalList.pagination.total == 0"
+                                    type="button" class="btn btn-default btn-sm"><i
+                                    class="fa fa-chevron-right"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                    </div>
+                    <div class="clearfix"></div>
+                    <!--<input class="form-control" name="addRuleModal-search" placeholder="search by name">-->
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>规则名称</td>
+                            <td>规则版本</td>
+                            <td>内容类型</td>
+                            <td>规则描述</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="model-select-item" v-for="(rule, index) in addRuleModalList.items">
+                            <td><input type="checkbox" v-model="rule._selected" v-on:change="addRuleModalList.selectSingleItem(index)"></td>
+                            <td class="mailbox-star">{{rule.rule_name}}</td>
+                            <td class="mailbox-name">{{rule.rule_version}}</td>
+                            <td class="mailbox-subject">{{rule.rule_type}}</td>
+                            <td class="mailbox-attachment">{{rule.rule_comment}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer" v-show="addRuleModalStep == 1">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" v-bind:disabled="addRuleModalList.numSelectedItems() == 0"
+                            v-on:click="addRuleModalGotoStep(2)"
+                    >Next</button>
+                </div>
+                <div class="modal-body" v-show="addRuleModalStep == 2">
+                    <label>规则描述</label>
+                    <textarea class="form-control" readonly>{{addRuleModalList.getSelectedSingleItem().rule_content}}</textarea>
+                    <label>关联参数</label>
+                    <textarea class="form-control" v-model="newEventRule.relationParam"></textarea>
+                    <label>备注</label>
+                    <textarea class="form-control" v-model="newEventRule.relationComment"></textarea>
+                </div>
+                <div class="modal-footer" v-show="addRuleModalStep == 2">
+                    <button class="btn btn-default"
+                            v-bind:disabled="newEventRule.isBusy"
+                            v-on:click="addRuleModalGotoStep(1)">Previous
+                    </button>
+                    <button
+                            v-bind:disabled="newEventRule.isBusy"
+                            v-on:click="addRuleToEventModalSave()"
+                            type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="removeRuleModal" tabindex="-1" role="dialog"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">確認刪除?</h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>规则 ID</th>
+                            <th>规则名称</th>
+                            <th>规则版本</th>
+                            <th>内容类型</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-if="item._selected" v-for="(item, index) in ruleList.items" >
+                            <td class="mailbox-star">{{item.rule_id}}</td>
+                            <td class="mailbox-name">{{item.rule_name}}</td>
+                            <td class="mailbox-subject">{{item.rule_version}}</td>
+                            <td class="mailbox-attachment">{{item.rule_type}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            v-bind:disabled="ruleList.isLoading()"
+                            class="btn btn-default" data-dismiss="modal">No</button>
+                    <button
+                            v-bind:disabled="ruleList.isLoading()"
+                            v-on:click="removeRuleFromEventModalSave()" type="button" class="btn btn-danger">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="editRuleModal" tabindex="-1" role="dialog"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑规则</h5>
+                </div>
+                <div class="modal-body">
+                    <label>规则 ID</label>
+                    <input class="form-control" readonly v-model="tobeEditedRule.rule_id">
+                    <label>规则名称</label>
+                    <input class="form-control" readonly v-model="tobeEditedRule.rule_name">
+                    <label>规则版本</label>
+                    <input class="form-control" readonly v-model="tobeEditedRule.rule_version">
+                    <label>内容类型</label>
+                    <input class="form-control" readonly v-model="tobeEditedRule.rule_type">
+                    <label>规则内容</label>
+                    <textarea class="form-control" readonly>{{tobeEditedRule.rule_content}}</textarea>
+                    <label>关联参数</label>
+                    <textarea class="form-control" v-model="tobeEditedRule.relation_param"></textarea>
+                    <label>备注</label>
+                    <textarea class="form-control" v-model="tobeEditedRule.relation_comment"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            v-bind:disabled="tobeEditedRule.isBusy"
+                            class="btn btn-default" data-dismiss="modal">Cancel
+                    </button>
+                    <button
+                            v-bind:disabled="tobeEditedRule.isBusy"
+                            v-on:click="editRuleModalSave()"
+                            type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

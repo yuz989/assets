@@ -20,10 +20,6 @@ var Rule = function() {
             newRuleModal: function() {
                 $('#newRuleModal').modal('show');
             },
-            editRuleModal: function(rule) {
-                this.editRule = Object.create(rule);
-                $('#editRuleModal').modal('show');
-            },
             createNewRule: function() {
                 var self = this;
                 var rule = self.newRule;
@@ -48,7 +44,6 @@ var Rule = function() {
 
                 }).catch(function(response) {
                     //refine
-                    alert('error');
                     $('#newRuleModal').modal('hide');
                 });
             },
@@ -72,11 +67,14 @@ var Rule = function() {
                 }).then(function(response){
                     $('#editRuleModal').modal('hide');
                     self.ruleList.reloadPage();
-
-                }).catch(function(response) {
-                    alert("error");
-                    $('#editRuleModal').modal('hide');
                 });
+            },
+            editRuleModal: function(rule) {
+                this.editRule = Object.create(rule);
+                $('#editRuleModal').modal('show');
+            },
+            editRuleModalSave: function() {
+
             },
             toRuleStatus: function(status) {
                 switch(status) {

@@ -19,9 +19,9 @@
                 <div class="input-group-addon">~</div>
                 <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="结束时间" id="filter_end_date">
             </div>
+            <label>訂單ID</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="訂單ID" v-model="filters.event_session_code">
 
-            <label for="inlineFormInput">事件ID</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="事件ID" v-model="filters.session_data_id">
             <button v-on:click="onSearchClick()" type="submit" class="btn btn-primary">检索</button>
         </form>
     </div>
@@ -58,8 +58,14 @@
                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据类型">
                         数据类型
                     </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="编号类型(ORDER…)">
+                        编号类型(ORDER…)
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="编号(如订单号码)">
+                        编号(如订单号码)
+                    </th>
                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据内容">
-                        数据内容(JSON)
+                        事件详情
                     </th>
                 </tr>
                 </thead>
@@ -72,7 +78,11 @@
                     <td>{{eventSession.request_id}}</td>
                     <td>{{eventSession.session_source}}</td>
                     <td>{{eventSession.content_type}}</td>
-                    <td>{{eventSession.content}}</td>
+                    <td>{{eventSession.event_session_code_type}}</td>
+                    <td>{{eventSession.event_session_code}}</td>
+                    <td><button
+                            v-on:click="eventSessionDetailModal(eventSession)"
+                            class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
             </table>
@@ -112,4 +122,37 @@
         </div>
     </section>
     <div class="clearfix"></div>
+
+    <div class="modal" id="eventSessionDetailModal" tabindex="-1" role="dialog"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">事件</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>事件 ID</label>
+                        <span class="form-control">{{selectedEventSession.session_d_id}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>事件名称</label>
+                        <span class="form-control">{{selectedEventSession.event_name}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>触发时间</label>
+                        <span class="form-control">{{selectedEventSession.trigger_time}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>事件详情</label>
+                        <span class="form-control">{{selectedEventSession.data_content}}</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                        class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
