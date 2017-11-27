@@ -34,7 +34,8 @@ var RuleTest = function() {
                     event_id: event_id
                 }
                 App.network.post(url, {
-                    data: body
+                    data: body,
+                    timeout: 600000
                 }).then(function(response) {
                     console.log(response);
                     self.isRunningTest = false;
