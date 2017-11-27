@@ -25,6 +25,8 @@ var EventSession = function() {
         },
         methods: {
             onSearchClick: function(page) {
+                if(page < 1 || page > this.eventSessionList.pagination.totalPages) return;
+
                 this.filters.start_date = $('#filter_start_date').val()
                 this.filters.end_date = $('#filter_end_date').val()
                 if(this.filters.event_session_code != '') {

@@ -15,6 +15,8 @@ var RiskList = function() {
             url: this.url
         });
 
+        this.transformEditedItemToRequestBody = param.transformEditedItemToRequestBody || function(item) {return item;}
+
         this.search = function() {
            if(this.searchKeyword != "") {
            }
@@ -38,12 +40,12 @@ var RiskList = function() {
         this.saveNewItem = function() {
             var self = this;
             self.widget.addItemModal.saveButtonDisabled = true;
-
             App.network.post(self.url, {
                 data: self.newItem
             }).then(function(response){
-                self.lists.item.append(self.newItem);
+                self.list.reloadPage({filters: tableSettings.filters, delay: 0});
                 self.widget.addItemModal.saveButtonDisabled = false;
+                riskList.riskListSummary[riskList.currentTable.name] += 1;
                 $(self.widget.addItemModal.name).modal('hide');
                 self.newItem = {};
 
@@ -58,7 +60,28 @@ var RiskList = function() {
         };
 
         this.deleteSelectedItems = function() {
-            console.log(this.list.numSelectedItems());
+            var self = this;
+            var listIds = [];
+
+            self.list.status.isLoading = true;
+            $.each(self.list.items, function(k,v) {
+                if(v._selected == true) {
+                    listIds.push(v.list_id);
+                }
+            });
+            App.network.delete(self.list.url, {
+                data: {
+                    list_ids: listIds
+                }
+            }).then(function(response) {
+                self.list.status.isLoading = false;
+                self.list.reloadPage({filters: tableSettings.filters, delay: 0});
+                $(self.widget.removeItemModal.name).modal('hide');
+                riskList.riskListSummary[riskList.currentTable.name] -= 1;
+            }).catch(function(response) {
+                $(self.widget.removeItemModal.name).modal('hide');
+                self.list.status.isLoading = false;
+            });
         };
 
         this.setTableSettingsListType = function(listType) {
@@ -72,6 +95,17 @@ var RiskList = function() {
             return tableSettings.filters;
         };
 
+        this.saveEditedItem = function(item) {
+            var self = this;
+            var url = this.url + '/' + item.list_id.toString();
+            var data  = this.transformEditedItemToRequestBody(item);
+            return App.network.put(url, {
+                data: data
+            }) .then(function(){
+                self.list.reloadPage({filters: tableSettings.filters, delay: 0});
+                $('#editListModal').modal('hide');
+            });
+        };
     };
 
     var tables = {
@@ -87,6 +121,15 @@ var RiskList = function() {
                     name: '#RemoveRiskAccountModal',
                     saveButtonDisabled: false
                 }
+            },
+            transformEditedItemToRequestBody: function(item) {
+                var body = {
+                    list_type: item.list_type,
+                    account_id: parseInt(item.account_id),
+                    account_type: item.account_type,
+                    list_comment: item.list_comment
+                }
+                return body;
             }
         }),
         device: new Table({
@@ -101,6 +144,15 @@ var RiskList = function() {
                     name: '#RemoveRiskDeviceModal',
                     saveButtonDisabled: false
                 }
+            },
+            transformEditedItemToRequestBody: function(item) {
+                var body = {
+                    list_type: item.list_type,
+                    device_type: item.device_type,
+                    device_id: item.device_id,
+                    list_comment: item.list_comment
+                }
+                return body;
             }
         }),
         ip: new Table({
@@ -115,6 +167,14 @@ var RiskList = function() {
                     name: '#RemoveRiskIPModal',
                     saveButtonDisabled: false
                 }
+            },
+           transformEditedItemToRequestBody: function(item) {
+                var body = {
+                    list_type: item.list_type,
+                    ip: item.ip,
+                    list_comment: item.list_comment
+                }
+                return body;
             }
         }),
     };
@@ -126,6 +186,8 @@ var RiskList = function() {
             tableSettings: tableSettings,
             currentTable: tables.account,
             tables: tables,
+            editedItemTableName: "",
+            editedItem: {}
         },
         created: function() {
             var self = this;
@@ -148,6 +210,13 @@ var RiskList = function() {
                 if(this.currentTable.list.isLoading()) { return; }
                 this.tableSettings.filters.list_type = listType;
                 this.currentTable.gotoPage(this.currentTable.list.pagination.page, {filters: this.tableSettings.filters, delay: 0});
+            },
+            editListModal: function(item) {
+                this.editedItem = Object.create(item);
+                $('#editListModal').modal('show');
+            },
+            editListModalSave: function() {
+                this.currentTable.saveEditedItem(this.editedItem);
             }
         }
     });

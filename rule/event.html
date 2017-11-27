@@ -78,7 +78,7 @@
                             <td>{{event.risk_score_high}}</td>
                             <td>{{event.num_rules}}</td>
                             <td>
-                                <button class="btn btn-primary" v-on:click="editEventModal(event)"><span class="glyphicon glyphicon glyphicon-pencil"></span> 编辑</button></td>
+                                <button class="btn btn-primary" v-on:click="editEventModal(event)"><span class="glyphicon glyphicon glyphicon-pencil"></span></button></td>
                         </tr>
                             </td>
                         </tr>
@@ -141,6 +141,10 @@
                 <div class="modal-body">
                     <div>
                         <div class="form-group">
+                            <label>所属事件组</label>
+                            <input class="form-control" type="text" v-model="newEvent.eventGroup">
+                        </div>
+                        <div class="form-group">
                             <label>事件名称</label>
                             <input class="form-control" type="text" v-model="newEvent.eventName">
                         </div>
@@ -175,9 +179,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">新增事件</h5>
+                    <h5 class="modal-title">编辑事件</h5>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group">
+                        <label>所属事件组</label>
+                        <input class="form-control" type="text" v-model="toBeEditedEvent.event_group">
+                    </div>
                     <div class="form-group">
                         <label>事件名称</label>
                         <input class="form-control" type="text" v-model="toBeEditedEvent.event_name">
@@ -200,8 +208,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button v-on:click="createNewEvent()" type="button" class="btn btn-primary">Save</button>
+                    <button type="button"
+                            v-bind:disabled="toBeEditedEvent.isBusy"
+                            class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button v-on:click="editEventModalSave()"
+                            v-bind:disabled="toBeEditedEvent.isBusy"
+                            type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>

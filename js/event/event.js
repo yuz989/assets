@@ -21,7 +21,26 @@ var Event = function() {
             },
             editEventModal: function(event) {
                 this.toBeEditedEvent = Object.create(event);
+                this.toBeEditedEvent.isBusy = false;
                 $('#editEventModal').modal('show');
+            },
+            editEventModalSave: function() {
+                var self = this;
+                var body = {
+                    event_group: self.toBeEditedEvent.event_group,
+                    event_name: self.toBeEditedEvent.event_name,
+                    event_comment: self.toBeEditedEvent.event_comment,
+                    event_priority: Number(self.toBeEditedEvent.event_priority),
+                    risk_score_low: Number(self.toBeEditedEvent.risk_score_low),
+                    risk_score_high: Number(self.toBeEditedEvent.risk_score_high)
+                };
+
+                App.network.put('/v1/mjwebapisrv/events/' + self.toBeEditedEvent.event_id , {
+                    data: body
+                }).then(function(response){
+                    self.eventList.reloadPage();
+                    $('#editEventModal').modal('hide');
+                });
             },
             createNewEvent: function() {
                 var self = this;
@@ -31,6 +50,7 @@ var Event = function() {
                 self.isCreatingNewEvent = true;
 
                 var body = {
+                    event_group: this.newEvent.eventGroup,
                     event_name: this.newEvent.eventName,
                     event_comment: this.newEvent.eventComment,
                     event_priority: Number(this.newEvent.eventPriority),
@@ -43,11 +63,8 @@ var Event = function() {
                     $('#newEventModal').modal('hide');
                     self.newEvent = {};
                     self.isCreatingNewEvent = false;
-
                     self.eventList.reloadPage();
                 }).catch(function(response) {
-                    //refine
-                    alert('error');
                     self.isCreatingNewEvent = false;
                 });
             }

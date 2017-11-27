@@ -28,15 +28,15 @@
                             <li v-bind:class="{active: currentTable.name=='account'}"><a
                                     v-on:click="displayRiskList('account')"><i class="fa fa-user-circle-o"></i>
                                 帐户名单
-                                <span class="label label-primary pull-right">{{riskListSummary.num_risk_accounts}}</span></a>
+                                <span class="label label-primary pull-right">{{riskListSummary.account}}</span></a>
                             </li>
                             <li v-bind:class="{active: currentTable.name=='ip'}"><a
                                     v-on:click="displayRiskList('ip')"><i class="fa fa-file-text-o"></i> IP名单 <span
-                                    class="label label-warning pull-right">{{riskListSummary.num_risk_ips}}</span></a>
+                                    class="label label-warning pull-right">{{riskListSummary.ip}}</span></a>
                             </li>
                             <li v-bind:class="{active: currentTable.name=='device'}"><a
                                     v-on:click="displayRiskList('device')"><i class="fa fa-forumbee"></i> 设备名单 <span
-                                    class="label label-danger pull-right">{{riskListSummary.num_risk_devices}}</span></a>
+                                    class="label label-danger pull-right">{{riskListSummary.device}}</span></a>
                             </li>
                             <!--<li><a href="#"><i class="fa fa-envelope-o"></i> 邮箱名单</a></li>-->
                             <!--<li><a href="#"><i class="fa fa-address-card-o"></i> 国家或地区名单 <span-->
@@ -102,6 +102,7 @@
                                     <th>帐户类型</th>
                                     <th>帐户ID</th>
                                     <th>建立时间</th>
+                                    <th>编辑</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -112,6 +113,7 @@
                                     <td class="mailbox-subject">{{item.account_type}}</td>
                                     <td class="mailbox-attachment">{{item.account_id}}</td>
                                     <td class="mailbox-date">{{item.creation_date}}</td>
+                                    <td><button class="btn btn-primary" v-on:click="editListModal(item)"><span class="glyphicon glyphicon glyphicon-pencil"></span></button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -124,6 +126,7 @@
                                     <th>IP</th>
                                     <th>备注</th>
                                     <th>建立时间</th>
+                                    <th>编辑</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -134,6 +137,7 @@
                                     <td class="mailbox-subject">{{item.ip}}</td>
                                     <td class="mailbox-attachment">{{item.list_comment}}</td>
                                     <td class="mailbox-date">{{item.creation_date}}</td>
+                                    <td><button class="btn btn-primary" v-on:click="editListModal(item)"><span class="glyphicon glyphicon glyphicon-pencil"></span></button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -146,6 +150,7 @@
                                     <th>设备类型</th>
                                     <th>设备指纹</th>
                                     <th>建立时间</th>
+                                    <th>编辑</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -156,6 +161,7 @@
                                     <td class="mailbox-subject">{{item.device_type}}</td>
                                     <td class="mailbox-attachment">{{item.device_id}}</td>
                                     <td class="mailbox-date">{{item.creation_date}}</td>
+                                    <td><button class="btn btn-primary" v-on:click="editListModal(item)"><span class="glyphicon glyphicon glyphicon-pencil"></span></button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -218,7 +224,7 @@
                 <div class="modal-body">
                     <form class="form">
                         <div class="form-group">
-                            <label>List Type</label>
+                            <label>名单类型</label>
                             <select class="form-control" name="list_type" v-model="tables.account.newItem.list_type">
                                 <option value="black">black</option>
                                 <option value="white">white</option>
@@ -226,16 +232,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Account Type</label>
+                            <label>帐户类型</label>
                             <input class="form-control" name="account_type" v-model="tables.account.newItem.account_type">
                         </div>
                         <div class="form-group">
-                            <label>Account ID</label>
+                            <label>帐户ID</label>
                             <input class="form-control" type="number" name="account_id"
                                    v-model="tables.account.newItem.account_id">
                         </div>
                         <div class="form-group">
-                            <label>List Comment</label>
+                            <label>备注</label>
                             <textarea class="form-control" v-model="tables.account.newItem.list_comment"></textarea>
                         </div>
                     </form>
@@ -259,8 +265,8 @@
                 <div class="modal-body">
                     <form class="form">
                         <div class="form-group">
-                            <label>List Type</label>
-                            <select class="form-control" name="list_type">
+                            <label>名单类型</label>
+                            <select class="form-control" name="list_type" v-model="tables.ip.newItem.list_type">
                                 <option value="black">black</option>
                                 <option value="white">white</option>
                                 <option value="grey">grey</option>
@@ -268,11 +274,11 @@
                         </div>
                         <div class="form-group">
                             <label>IP</label>
-                            <input class="form-control" name="account_type">
+                            <input class="form-control" name="account_type" v-model="tables.ip.newItem.ip">
                         </div>
                         <div class="form-group">
-                            <label>List Comment</label>
-                            <textarea class="form-control"></textarea>
+                            <label>备注</label>
+                            <textarea class="form-control" v-model="tables.ip.newItem.list_comment"></textarea>
                         </div>
                     </form>
                 </div>
@@ -293,24 +299,24 @@
                 <div class="modal-body">
                     <form class="form">
                         <div class="form-group">
-                            <label>List Type</label>
-                            <select class="form-control" name="list_type">
+                            <label>名单类型</label>
+                            <select class="form-control" name="list_type" v-model="tables.device.newItem.list_type">
                                 <option value="black">black</option>
                                 <option value="white">white</option>
                                 <option value="grey">grey</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Device Type</label>
-                            <input class="form-control" name="device_type">
+                            <label>设备类型</label>
+                            <input class="form-control" type="text" name="device_type" v-model="tables.device.newItem.device_type">
                         </div>
                         <div class="form-group">
-                            <label>Device ID</label>
-                            <input class="form-control" type="number" name="device_id">
+                            <label>设备指纹</label>
+                            <input class="form-control" type="text" name="device_id" v-model="tables.device.newItem.device_id">
                         </div>
                         <div class="form-group">
-                            <label>List Comment</label>
-                            <textarea class="form-control" name="list_comment"></textarea>
+                            <label>备注</label>
+                            <textarea class="form-control" name="list_comment" v-model="tables.device.newItem.list_comment"></textarea>
                         </div>
                     </form>
                 </div>
@@ -438,5 +444,90 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑</h5>
+                </div>
+                <div class="modal-body">
+                    <form v-if="currentTable.name=='account'" class="table table-hover table-striped">
+                        <div class="form-group">
+                            <label>名单类型</label>
+                            <select class="form-control" name="list_type" v-model="editedItem.list_type">
+                                <option value="black">black</option>
+                                <option value="white">white</option>
+                                <option value="grey">grey</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>帐户类型</label>
+                            <input class="form-control" type="text" v-model="editedItem.account_type">
+                        </div>
+                        <div class="form-group">
+                            <label>帐户ID</label>
+                            <input class="form-control" type="number" v-model="editedItem.account_id">
+                        </div>
+                        <div class="form-group">
+                            <label>备注</label>
+                            <input class="form-control" type="text" v-model="editedItem.list_comment">
+                        </div>
+                    </form>
+
+                    <form  v-if="currentTable.name=='ip'" class="table table-hover table-striped">
+                        <div class="form-group">
+                            <label>名单类型</label>
+                            <select class="form-control" name="list_type" v-model="editedItem.list_type">
+                                <option value="black">black</option>
+                                <option value="white">white</option>
+                                <option value="grey">grey</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>IP</label>
+                            <input class="form-control" v-model="editedItem.ip">
+                        </div>
+                        <div class="form-group">
+                            <label>备注</label>
+                            <input class="form-control" type="text" v-model="editedItem.list_comment">
+                        </div>
+                    </form>
+                    <form  v-if="currentTable.name=='device'" class="table table-hover table-striped">
+                        <div class="form-group">
+                            <label>名单类型</label>
+                            <select class="form-control" name="editedItem.list_type" v-model="editedItem.list_type">
+                                <option value="black">black</option>
+                                <option value="white">white</option>
+                                <option value="grey">grey</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>设备类型</label>
+                            <input class="form-control" type="text" v-model="editedItem.device_type">
+                        </div>
+                        <div class="form-group">
+                            <label>设备指纹</label>
+                            <input class="form-control" type="text" v-model="editedItem.device_id">
+                        </div>
+                        <div class="form-group">
+                            <label>备注</label>
+                            <input class="form-control" type="text" v-model="editedItem.list_comment">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button
+                            v-on:click="editListModalSave()"
+                            type="button" class="btn btn-primary">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div>
 </div>

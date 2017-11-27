@@ -4,7 +4,7 @@ var EventRule = function() {
         data: {
             eventList: new PaginableComponent({url: '/v1/mjwebapisrv/events',
                 defaultPage: 1,
-                defaultPageSize: 8,
+                defaultPageSize: 32,
             }),
             ruleList: new PaginableComponent(),
             searchEventKeyWord: "",

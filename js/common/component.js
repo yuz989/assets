@@ -57,9 +57,6 @@ var PaginableComponent = PaginableComponent || function(param) {
                 self.pagination.totalPages = response.total_pages;
                 self.items = response.items;
                 successCallback(response);
-
-                console.log(response);
-
                 setTimeout(function() {
                     self._resetStatus();
                 }, param.delay);

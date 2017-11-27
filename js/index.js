@@ -35,7 +35,7 @@ var App = {
             data: {
                 widget: new Widget()
             },
-        })
+        });
     },
     network: {
         fetch: function(path, callback, param) {
@@ -68,12 +68,6 @@ var App = {
                 method: 'post',
                 url: this._path(path),
                 data: param.data
-            }).then(function(response) {
-                if(response.data.success) {
-                    callback.success(response.data.result);
-                } else {
-                    callback.fail(response.data.error);
-                }
             }).catch(function(response) {
                 App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
@@ -99,17 +93,22 @@ var App = {
                 App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
         },
-        del: function(pathparam) {
+        delete: function(path, param) {
             param = param || {};
             var callback = param.callback || {
                 success: function(d){},
                 fail: function(d){}
             };
-
+            return axios({
+                method: 'delete',
+                url: this._path(path),
+                data: param.data
+            }).catch(function(response) {
+                App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
+            });
         },
         _path: function(path) {
             return '/v1/mjwebsrv' + path;
-//            return 'http://127.0.0.1:10032' + path;
         }
     },
     widget: {
