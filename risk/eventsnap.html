@@ -110,7 +110,7 @@
                     </li>
 
                     <li
-                        v-bind:disabled="eventSessionList.isLoading() || eventSessionList.pagination.page == eventSessionList.pagination.totalPages || ruleList.pagination.total == 0"
+                        v-bind:disabled="eventSessionList.isLoading() || eventSessionList.pagination.page == eventSessionList.pagination.totalPages || eventSessionList.pagination.total == 0"
                         v-bind:class="{disabled: eventSessionList.pagination.page==eventSessionList.pagination.totalPages}"
                         class="paginate_button next" id="example1_next"><a
                             v-on:click="onSearchClick(eventSessionList.getNextPageNumber())"
