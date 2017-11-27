@@ -8,6 +8,11 @@ var RuleTest = function() {
             eventList: new PaginableComponent({url: '/v1/mjwebapisrv/events'}),
             isRunningTest: false
         },
+        created: function() {
+            window.onbeforeunload = function(e) {
+                return 'You have unsaved changes!';
+            };
+        },
         mounted: function() {
             $('.datepicker').datepicker();
             this.eventList.gotoPage(1);
