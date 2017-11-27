@@ -68,7 +68,8 @@ var App = {
             return axios({
                 method: 'post',
                 url: this._path(path),
-                data: param.data
+                data: param.data,
+                timeout: param.timeout || 600000
             }).catch(function(response) {
                 App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
