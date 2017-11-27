@@ -6,32 +6,24 @@
         </h1>
     </section>
     <div class="pad margin no-print">
-        <form class="form-inline">
-            <label class="mr-sm-2" for="inlineFormCustomSelect">规则</label>
-            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
-                <option selected>Choose...</option>
-                <option value="1">规则1</option>
-                <option value="2">规则2</option>
-                <option value="3">规则3</option>
-            </select>
-
+        <div class="form-inline">
             <label class="mr-sm-2" for="inlineFormCustomSelect">事件</label>
-            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
-                <option selected>Choose...</option>
-                <option value="1">下单</option>
-                <option value="2">支付</option>
-                <option value="3">注册</option>
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" v-model="filter.event_id">
+                <option value="0" selected>Choose...</option>
+                <option v-for="event in eventList.items" v-bind:value="event.event_id">{{event.event_name}}</option>
             </select>
 
-            <label for="filter_start_date">时间范围:</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_date">
+            <label>时间范围:</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_time">
 
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon">~</div>
-                <input type="text" class="form-control"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_end_date">
+                <input type="text" class="form-control"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_end_time">
             </div>
-            <button type="submit" class="btn btn-primary">测试</button>
-        </form>
+            <button
+                    v-bind:disabled="isRunningTest"
+                    v-on:click="runTest()" type="submit" class="btn btn-primary">测试</button>
+        </div>
     </div>
     <!-- Main content -->
     <section class="invoice">

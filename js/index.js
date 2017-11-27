@@ -24,6 +24,7 @@ var App = {
             'assets/rule/rule.html': Rule,
             'assets/rule/eventrules.html': EventRule,
             'assets/rule/ruleresult.html': RuleAnalysis,
+            'assets/rule/ruletest.html': RuleTest,
             'assets/graph/graph.html': Graph,
             'assets/risk/riskmanualaudit.html': RiskAudit,
             'assets/risk/eventsnap.html': EventSession,

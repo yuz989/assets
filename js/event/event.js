@@ -48,7 +48,6 @@ var Event = function() {
                     return;
                 }
                 self.isCreatingNewEvent = true;
-
                 var body = {
                     event_group: this.newEvent.eventGroup,
                     event_name: this.newEvent.eventName,
