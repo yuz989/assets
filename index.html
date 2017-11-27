@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MoJing</title>
+    <title>KLOOK-魔镜</title>
+    <link rel="shortcut icon" href="assets/static/admin-favicon.png" type="image/x-icon">
 
     <!--neo4jd3-->
     <link rel="stylesheet" href="assets/static/neo4jd3/css/neo4jd3.css">
@@ -23,7 +24,10 @@
 
     <!--node_module-->
     <link rel="stylesheet" href="assets/node_modules/bootstrap-select/dist/css/bootstrap-select.css">
-    <link rel="stylesheet"  href="assets/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="assets/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id"
+          content="439113682894-2ukhgtgdlma4npa3aq66f18l7hn5a971.apps.googleusercontent.com">
     <style>
         div.left-small-box {
             min-height: 100px
@@ -60,93 +64,143 @@
     .model-select-item:hover {
         cursor: pointer;
     }
+
     </style>
 </head>
 <body class="skin-blue-light layout-top-nav" style="height: auto; min-height: 100%;">
 <div id="VueApp">
-    <div class="wrapper" style="height: auto; min-height: 100%;" >
-    <header class="main-header">
-        <nav class="navbar navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a href="/" class="navbar-brand">魔镜</a>
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#navbar-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <header class="main-header">
+            <nav class="navbar navbar-static-top">
+                <div class="col-xs-11">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand">魔镜</a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="javascript:loadhtmlToContainer('assets/graph/graph.html')">图关联查询</a>
+                            </li>
+                            <!-- <li><a href="#">规则</a></li>  -->
+                            <!--
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础数据 <span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">事件定义</a></li>
+                                    <li><a href="#">规则定义</a></li>
+                                </ul>
+                            </li> -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">风险策略管理 <span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="javascript:loadhtmlToContainer('assets/list/list.html')">黑白灰名单库</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:loadhtmlToContainer('assets/rule/event.html')">事件定义</a></li>
+                                    <li><a href="javascript:loadhtmlToContainer('assets/rule/rule.html')">规则定义</a></li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="javascript:loadhtmlToContainer('assets/rule/eventrules.html')">风控策略设置</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:loadhtmlToContainer('assets/rule/ruleresult.html')">策略效果评估</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:loadhtmlToContainer('assets/rule/ruletest.html')">规则灰度测试</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">反欺诈处理 <span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <!-- <li><a href="javascript:loadhtmlToContainer('assets/risk/riskmanualaudit.html')">疑似风险记录</a></li>
+                                     <li class="divider"></li>
+                                      <li><a href="javascript:loadhtmlToContainer('assets/risk/riskmanualaudithist.html')">风险审核历史</a></li> -->
+                                    <!-- <li><a href="javascript:loadhtmlToContainer('assets/risk/risksessionhistory.html')">案件和风险档案库</a></li> -->
+                                    <li>
+                                        <a href="javascript:loadhtmlToContainer('assets/risk/eventsnap.html') ">事件档案库</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:loadhtmlToContainer('assets/risk/risksessionhistory.html')">订单档案库</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="dropdown hidden">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--search-form-->
+                    <!--<form class="navbar-form navbar-left" role="search">-->
+                    <!--<div class="form-group">-->
+                    <!--<input type="text" class="form-control" id="navbar-search-input" placeholder="Search">-->
+                    <!--</div>-->
+                    <!--</form>-->
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                <div class="col-xs-1" id="navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a href="javascript:loadhtmlToContainer('assets/graph/graph.html')">图关联查询</a>
-                        </li>
-                        <!-- <li><a href="#">规则</a></li>  -->
-                        <!--
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础数据 <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">事件定义</a></li>
-                                <li><a href="#">规则定义</a></li>
-                            </ul>
-                        </li> -->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">风险策略管理 <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:loadhtmlToContainer('assets/list/list.html')">黑白灰名单库</a></li>
-                                <li class="divider"></li>
-                                <li><a href="javascript:loadhtmlToContainer('assets/rule/event.html')">事件定义</a></li>
-                                <li><a href="javascript:loadhtmlToContainer('assets/rule/rule.html')">规则定义</a></li>
-                                <li class="divider"></li>
-                                <li><a href="javascript:loadhtmlToContainer('assets/rule/eventrules.html')">风控策略设置</a></li>
-                                <li><a href="javascript:loadhtmlToContainer('assets/rule/ruleresult.html')">策略效果评估</a></li>
-                                <li class="divider"></li>
-                                <li><a href="javascript:loadhtmlToContainer('assets/rule/ruletest.html')">规则灰度测试</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">反欺诈处理 <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <!--<li><a href="javascript:loadhtmlToContainer('assets/risk/riskmanualaudit.html')">疑似风险记录</a></li>-->
-                                <li class="divider"></li>
-                                <li class="divider"></li>
-                                <li><a href="javascript:loadhtmlToContainer('assets/risk/eventsnap.html') ">事件档案库</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown hidden">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
+                        <li class="active  navbar-right">
+                            <a href="javascript:signOut()">
+                                <img src="assets/static/admin-favicon.png" style="width:20px;height:20px;"
+                                     class="img-circle" alt="User Image">
+                                登出</a>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="content-wrapper" id="main-container" style="min-height: 257px;">
-    <footer class="main-footer">
-        <div class="container">
+                <div class="clearfix"></div>
+                <!--  /////////////////////////////// -->
+            </nav>
+        </header>
+        <div class="content-wrapper" id="main-container" style="min-height: 257px;">
+            <footer class="main-footer">
+                <div class="container">
+                </div>
+            </footer>
         </div>
-    </footer>
-</div>
-</div>
-    <div id="widget-alert" class="col-xs-12 col-sm-4 col-sm-offset-4 alert alert-error fade in" role="alert" style="position:fixed;bottom:0px;text-align:center;display:none;">
+    </div>
+    <div id="widget-alert" class="col-xs-12 col-sm-4 col-sm-offset-4 alert alert-error fade in" role="alert"
+         style="position:fixed;bottom:0px;text-align:center;display:none;">
         <strong>ERROR:</strong> {{widget.alert.message}}
     </div>
 </div>
+<script>
+    function signOut() {
+       // alert("用户登出1")
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            //alert("用户登出2.")
+            console.log('User signed out.');
+            location.href="http://mj.klook.io/v1/mjwebsrv/logout"
+        });
+    }
+    function onLoad() {
+        gapi.load('auth2', function() {
+            gapi.auth2.init();
+        });
+    }
+</script>
+
 <!-- jQuery 3 -->
 <script src="assets/static/jquery/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -165,6 +219,8 @@
 <script src="assets/node_modules/vuejs-paginate/dist/index.js"></script>
 <script src="assets/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="assets/node_modules/vee-validate/dist/vee-validate.min.js"></script>
+<!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
 <!-- vue app components-->
 <script src="assets/js/common/component.js"></script>
