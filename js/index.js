@@ -27,6 +27,7 @@ var App = {
             'assets/rule/ruletest.html': RuleTest,
             'assets/graph/graph.html': Graph,
             'assets/risk/riskmanualaudit.html': RiskAudit,
+            'assets/risk/risksessionhistory.html': RiskSessionHistory,
             'assets/risk/eventsnap.html': EventSession,
             'assets/list/list.html': RiskList
         };
@@ -37,6 +38,7 @@ var App = {
                 widget: new Widget()
             },
         });
+        this._init = true;
     },
     network: {
         fetch: function(path, callback, param) {
@@ -117,11 +119,13 @@ var App = {
         alert: function(message, delay) {
             $("#widget-alert").alert.show(message, delay);
         }
-    }
+    },
+    _init: false
 };
 
 function loadhtmlToContainer(html) {
     $('#main-container').load(html, function() {
+        console.log(html);
         var bootstrapFunc = App.config.vueBootstrapMap[html];
         if(bootstrapFunc) {
             bootstrapFunc();
@@ -133,8 +137,9 @@ function loadhtmlToContainer(html) {
 }
 
 window.onload = function(ev) {
-    App.init();
-
+    if(!App._init) {
+        App.init();
+    }
     // 默认首页
     var hash = window.location.hash;
     var html = 'assets/graph/graph.html';

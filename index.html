@@ -194,7 +194,7 @@
             location.href="http://mj.klook.io/v1/mjwebsrv/logout"
         });
     }
-    function onLoad() {
+    function onGScriptLoad() {
         gapi.load('auth2', function() {
             gapi.auth2.init();
         });
@@ -220,7 +220,7 @@
 <script src="assets/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="assets/node_modules/vee-validate/dist/vee-validate.min.js"></script>
 <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+<!--<script src="https://apis.google.com/js/platform.js?onload=onGScriptLoad" async defer></script>-->
 
 <!-- vue app components-->
 <script src="assets/js/common/component.js"></script>
@@ -231,6 +231,7 @@
 <script src="assets/js/event_rule/event_rule.js"></script>
 <script src="assets/js/list/list.js"></script>
 <script src="assets/js/risk/risk_audit.js"></script>
+<script src="assets/js/risk/risk_session_history.js"></script>
 <script src="assets/js/rule/rule_analyses.js"></script>
 <script src="assets/js/rule/rule_test.js"></script>
 <script src="assets/js/index.js"></script>
