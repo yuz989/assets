@@ -6,7 +6,12 @@ var RuleTest = function() {
                 event_id: "0"
             },
             eventList: new PaginableComponent({url: '/v1/mjwebapisrv/events'}),
-            isRunningTest: false
+            isRunningTest: false,
+            result: {
+                event_id: '',
+                old_result: [],
+                new_result: []
+            }
         },
         created: function() {
             window.onbeforeunload = function(e) {
@@ -23,11 +28,6 @@ var RuleTest = function() {
 
                 if(self.isRunningTest == true) return;
 
-                if(self.filter.event_id == "0") {
-                    alert("error");
-                    return;
-                }
-
                 self.isRunningTest = true;
                 var url = '/v1/mjwebapisrv/rule_test/grey';
                 var start_time = $('#filter_start_time').val();
@@ -42,11 +42,19 @@ var RuleTest = function() {
                     data: body,
                     timeout: 600000
                 }).then(function(response) {
-                    console.log(response);
+                    self.result = response.data.result;
                     self.isRunningTest = false;
                 }).catch(function(response) {
                     self.isRunningTest = false;
                 });
+            },
+            riskLevelBackground: function(value) {
+                var v = {
+                    'NORMAL': 'risk-normal',
+                    'HIGH': 'risk-high',
+                    'LOW': 'risk-low'
+                };
+                return v[value];
             }
         }
     });

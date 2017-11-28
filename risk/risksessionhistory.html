@@ -12,6 +12,24 @@
         <div class="row invoice-info">
         </div>
         <div class="row">
+            <div class="col-xs-12" style="margin-bottom:1em;">
+                <div class="col-xs-10">
+                    <form class="form-inline">
+                        <label>时间范围:</label>
+                        <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_date">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon">~</div>
+                            <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="结束时间" id="filter_end_date">
+                        </div>
+                        <span class="has-feedback">
+                            <label>訂單ID</label>
+                            <input class="form-control input-sm" type="text" placeholder="search by order GUID" v-model="filters.order_id">
+                        </span>
+                        <button v-on:click="searchRiskOrder()" class="btn btn-primary">检索</button>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
             <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
                    aria-describedby="example2_info">
                 <thead>
@@ -28,32 +46,143 @@
                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件说明">
                         结果
                     </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="內容">
+                        內容
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="备注">
+                        备注
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="创建时间">
+                        创建时间
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="详情">
+                        详情
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(riskOrder, index) in riskOrders" role="row" class="odd">
+                <tr v-for="(riskOrder, index) in riskOrders.items" role="row" class="odd">
                     <td>{{riskOrder.order_id}}</td>
-                    <td>{{riskOrder.order_no}}</td>
-                    <td>
-                        <div>
-
-                        </div>
-                        <div>
-
-                        </div>
+                    <td>{{riskOrder.order_guid}}</td>
+                    <td class="multi-row">
+                        <div>MJ</div>
+                        <div>KOUNT</div>
                     </td>
-                    <td>
-                        <div>
-
-                        </div>
-                        <div>
-
-                        </div>
+                    <td class="multi-row">
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'MJ', 'result')}}</div>
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'KOUNT', 'result')}}</div>
                     </td>
+                    <td class="multi-row">
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'MJ', 'result')}}</div>
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'KOUNT', 'result')}}</div>
+                    </td>
+                    <td class="multi-row">
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'MJ', 'result_comment')}}</div>
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'KOUNT', 'result_comment')}}</div>
+                    </td>
+                    <td class="multi-row">
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'MJ', 'creation_date')}}</div>
+                        <div>{{getRiskOrderFieldByDataType(riskOrder, 'KOUNT', 'creation_date')}}</div>
+                    </td>
+                    <td><button v-on:click="riskOrderDetailModal(riskOrder)" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
             </table>
+
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers">
+                    <ul class="pagination">
+                        <li v-bind:class="{disabled: riskOrders.pagination.page==1}"
+                            class="paginate_button previous" id="example1_previous"><a
+                                v-on:click="searchRiskOrder(riskOrders.getPreviousPageNumber())"
+                                aria-controls="example1"
+                                data-dt-idx="0"
+                                tabindex="0">Previous</a>
+                        </li>
+
+                        <li v-for="(item, index) in 10"
+                            v-if="riskOrders.pagination.page-5+index <= riskOrders.pagination.totalPages && riskOrders.pagination.page-5+index >= 1"
+                            class="paginate_button"
+                            v-bind:class="{active: riskOrders.pagination.page-5+index == riskOrders.pagination.page}"
+                        >
+                            <a v-on:click="searchRiskOrder(riskOrders.pagination.page-5+index)"
+                               aria-controls="example1" data-dt-idx="1" tabindex="0">
+                                {{riskOrders.pagination.page-5+index}}
+                            </a>
+                        </li>
+
+                        <li
+                                v-bind:disabled="riskOrders.isLoading() || riskOrders.pagination.page == riskOrders.pagination.totalPages || riskOrders.pagination.total == 0"
+                                v-bind:class="{disabled: riskOrders.pagination.page==riskOrders.pagination.totalPages}"
+                                class="paginate_button next" id="example1_next"><a
+                                v-on:click="searchRiskOrder(riskOrders.getNextPageNumber())"
+                                aria-controls="example1"
+                                data-dt-idx="7"
+                                tabindex="0">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
+    <div>
+
+    </div>
     <div class="clearfix"></div>
+
+    <div class="modal" id="riskOrderDetailModal" tabindex="-1" role="dialog"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">详情</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>订单ID</label>
+                        <span class="form-control">{{riskOrderDetail.order_id}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>订单号码</label>
+                        <span class="form-control">{{riskOrderDetail.order_guid}}</span>
+                    </div>
+
+                    <table class="table" role="grid">
+                        <thead>
+                            <tr role="row">
+                                <th class="col-xs-4"></th>
+                                <th class="col-xs-4">MJ</th>
+                                <th class="col-xs-4">KOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>结果</td>
+                                <td>{{getRiskOrderFieldByDataType(riskOrderDetail, 'MJ', 'result')}}</td>
+                                <td>{{getRiskOrderFieldByDataType(riskOrderDetail, 'KOUNT', 'result')}}</td>
+                            </tr>
+                            <tr>
+                                <td>风险值</td>
+                                <td>{{getRiskOrderFieldByDataType(riskOrderDetail, 'MJ', 'risk_result')}}</td>
+                                <td>{{getRiskOrderFieldByDataType(riskOrderDetail, 'KOUNT', 'risk_result')}}</td>
+                            </tr>
+                            <tr>
+                                <td>内容</td>
+                                <td>
+                                    {{getRiskOrderFieldByDataType(riskOrderDetail, 'MJ', 'result_content')}}
+                                </td>
+                                <td>
+                                    {{getRiskOrderFieldByDataType(riskOrderDetail, 'KOUNT', 'result_content')}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

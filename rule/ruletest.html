@@ -14,83 +14,57 @@
             </select>
 
             <label>时间范围:</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_time">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" data-provide="datepicker"
+                   data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_start_time">
 
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon">~</div>
-                <input type="text" class="form-control"  data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_end_time">
+                <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd"
+                       placeholder="起始时间" id="filter_end_time">
             </div>
             <button
                     v-bind:disabled="isRunningTest"
-                    v-on:click="runTest()" type="submit" class="btn btn-primary">测试</button>
+                    v-on:click="runTest()" type="submit" class="btn btn-primary">测试
+            </button>
         </div>
     </div>
     <!-- Main content -->
     <section class="invoice">
         <!-- title row -->
         <div class="row">
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <label>测试结果:</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..." autocomplete="off"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="row invoice-info">
-
-            <div class="form-group">
-                <label>交易及处理明细</label>
-            </div>
-        </div>
-        <div class="row">
-            <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
-                   aria-describedby="example2_info">
+            <table class="table risk-test-tbl">
                 <thead>
                 <tr role="row">
-                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                        aria-sort="ascending" aria-label="事件名称">事件ID
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件名称">
-                        事件名称
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="触发时间">
-                        触发时间
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                        aria-label="RequestID">RequestID
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件来源">
-                        事件来源
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据类型">
-                        数据类型
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据内容">
-                        数据内容(JSON)
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="风险分">
-                        风险分
-                    </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="评估结果">
-                        评估结果
-                    </th>
+                    <th class="col-xs-2"></th>
+                    <th class="col-xs-5">New Result</th>
+                    <th class="col-xs-5">Old Result</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr role="row" class="odd" v-show="false">
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
+                <tr v-for="(item, index) in result.old_result">
+                    <td>
+                        <div>風險等級</div>
+                        <div>風險分</div>
+                        <div>花費時間(s)</div>
+                        <div>規則數</div>
+                    </td>
+                    <td>
+                        <div v-bind:class="riskLevelBackground(result.new_result[index].level)">{{result.new_result[index].level}}</div>
+                        <div>{{result.new_result[index].score}}</div>
+                        <div>{{result.new_result[index].score}}</div>
+                        <div>{{result.new_result[index].rule_result_list.length}}</div>
+                    </td>
+                    <td>
+                        <div v-bind:class="riskLevelBackground(result.old_result[index].level)">{{result.old_result[index].level}}</div>
+                        <div>{{result.old_result[index].score}}</div>
+                        <div>{{result.new_result[index].score}}</div>
+                        <div>{{result.new_result[index].rule_result_list.length}}</div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </section>
+
     <div class="clearfix"></div>
 </div>

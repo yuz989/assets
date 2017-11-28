@@ -19,8 +19,8 @@
                 <div class="input-group-addon">~</div>
                 <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="结束时间" id="filter_end_date">
             </div>
-            <label>訂單ID</label>
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="訂單ID" v-model="filters.event_session_code">
+            <label>订单号码</label>
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="订单号码" v-model="filters.event_session_code">
 
             <button v-on:click="onSearchClick(1)" type="submit" class="btn btn-primary">检索</button>
         </form>
