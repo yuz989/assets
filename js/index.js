@@ -61,6 +61,15 @@ var App = {
                 App.Vue.widget.alert.show((r.response.status + " " + r.response.statusText + "\n" + r.response.data), 3000);
             });
         },
+        get: function(url, param) {
+            param = param || {};
+            return axios({
+                method: 'get',
+                url: this._path(url)
+            }).catch(function(r) {
+                alert(1);
+            });
+        },
         post: function(path, param) {
             param = param || {};
             var callback = param.callback || {

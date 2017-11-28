@@ -10,7 +10,9 @@ var EventSession = function() {
             },
             eventSessionList: new PaginableComponent({url: '/v1/mjwebapisrv/event_sessions'}),
             eventSummary: [],
-            selectedEventSession: {}
+            selectedEventSession: {
+                riskCheckList: {}
+            }
         },
         mounted: function() {
             var self = this;
@@ -37,8 +39,19 @@ var EventSession = function() {
                 });
             },
             eventSessionDetailModal: function(eventSession) {
-                this.selectedEventSession = Object.create(eventSession);
-                $('#eventSessionDetailModal').modal('show');
+                var self = this;
+                var url = '/v1/mjwebapisrv/event_sessions/' + eventSession.session_id.toString() + '/risk_check';
+                App.network.get(url).then(function(response) {
+                    self.selectedEventSession = eventSession;
+                    if(response.data.result) {
+                        self.selectedEventSession.riskCheckList = response.data.result;
+                    } else {
+                        self.selectedEventSession.riskCheckList = {};
+                    }
+
+                    console.log(self.selectedEventSession.riskCheckList);
+                    $('#eventSessionDetailModal').modal('show');
+                });
             }
         }
     });

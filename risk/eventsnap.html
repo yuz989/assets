@@ -6,7 +6,7 @@
         </h1>
     </section>
     <div class="pad margin no-print">
-        <form class="form-inline">
+        <div class="form-inline">
             <label class="mr-sm-2" for="inlineFormCustomSelect">事件</label>
             <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" v-model="filters.event_id">
                 <option value="0">ALL</option>
@@ -22,8 +22,8 @@
             <label>订单号码</label>
             <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="订单号码" v-model="filters.event_session_code">
 
-            <button v-on:click="onSearchClick(1)" type="submit" class="btn btn-primary">检索</button>
-        </form>
+            <button v-on:click="onSearchClick(1)" class="btn btn-primary">检索</button>
+        </div>
     </div>
 
 
@@ -64,7 +64,28 @@
                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="编号(如订单号码)">
                         编号(如订单号码)
                     </th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="数据内容">
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="风险预判总分">
+                        风险预判总分
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="预判风险等级">
+                        预判风险等级
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="风险手工标注">
+                        风险手工标注
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="标注备注">
+                        标注备注
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="手工风险标签">
+                        手工风险标签
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="最终结果">
+                        最终结果
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="最终结果来源">
+                        最终结果来源
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="事件详情">
                         事件详情
                     </th>
                 </tr>
@@ -78,11 +99,18 @@
                     <td>{{eventSession.request_id}}</td>
                     <td>{{eventSession.session_source}}</td>
                     <td>{{eventSession.content_type}}</td>
-                    <td>{{eventSession.event_session_code_type}}</td>
                     <td>{{eventSession.event_session_code}}</td>
-                    <td><button
-                            v-on:click="eventSessionDetailModal(eventSession)"
-                            class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                    <td>{{eventSession.event_session_code_type}}</td>
+                    <td>{{eventSession.risk_total_score}}</td>
+                    <td>{{eventSession.risk_level}}</td>
+                    <td>{{eventSession.risk_result}}</td>
+                    <td>{{eventSession.risk_comment}}</td>
+                    <td>{{eventSession.risk_tags}}</td>
+                    <td>{{eventSession.risk_last_result}}</td>
+                    <td>{{eventSession.risk_last_result_source}}</td>
+                    <td>
+                        <button v-on:click="eventSessionDetailModal(eventSession)"
+                        class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
             </table>
@@ -148,6 +176,32 @@
                     <div class="form-group">
                         <label>事件详情</label>
                         <textarea style="height:15em;" class="form-control" readonly v-model="selectedEventSession.data_content"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>命中规则</label>
+                        <div></div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>规则ID</th>
+                                <th>规则名称</th>
+                                <th>规则版本</th>
+                                <th>规则内容</th>
+                                <th>内容类型</th>
+                                <th>风险分</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(item, index) in selectedEventSession.riskCheckList.items">
+                                <td>{{item.rule_id}}</td>
+                                <td>{{item.rule_name}}</td>
+                                <td>{{item.rule_version}}</td>
+                                <td>{{item.rule_content}}</td>
+                                <td>{{item.rule_type}}</td>
+                                <td>{{item.risk_score}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="modal-footer">
