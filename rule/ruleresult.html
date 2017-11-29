@@ -26,13 +26,7 @@
                 <div class="input-group-addon">~</div>
                 <input type="text" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" placeholder="起始时间" id="filter_end_date">
             </div>
-            <button v-on:click="ruleAnalysisList.search({
-                filters: {
-                    start_date: searchFilter.start_time,
-                    end_date: searchFilter.end_time,
-                    event_id: searchFilter.event_id,
-                    rule_id: searchFilter.rule_id}
-            })" class="btn btn-primary">查找</button>
+            <button v-on:click="searchRuleAnalysis(1)" class="btn btn-primary">查找</button>
         </div>
     </div>
 
@@ -87,7 +81,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="box box-primary">
+        <div class="box box-primary" v-show="false">
             <div class="box-header with-border">
                 <h3 class="box-title">Area Chart</h3>
 

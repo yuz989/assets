@@ -26,10 +26,12 @@
                     v-bind:disabled="isRunningTest"
                     v-on:click="runTest()" type="submit" class="btn btn-primary">测试
             </button>
+            <span v-show="isRunningTest">執行時間: {{testRunningTime}} (s)</span>
+
         </div>
     </div>
     <!-- Main content -->
-    <section class="invoice">
+    <section class="invoice" style="z-index:0;">
         <!-- title row -->
         <div class="row">
             <table class="table risk-test-tbl">
@@ -41,6 +43,11 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr v-show="result.old_result.length == 0">
+                    <td></td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
                 <tr v-for="(item, index) in result.old_result">
                     <td>
                         <div>風險等級</div>

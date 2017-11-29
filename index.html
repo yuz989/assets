@@ -195,9 +195,10 @@
             </footer>
         </div>
     </div>
-    <div id="widget-alert" class="col-xs-12 col-sm-4 col-sm-offset-4 alert alert-error fade in" role="alert"
+    <div id="widget-alert" class="col-xs-12 col-sm-4 col-sm-offset-4 alert fade in" role="alert"
+         v-bind:class="widget.alert.getClass()"
          style="position:fixed;bottom:0px;text-align:center;display:none;">
-        <strong>ERROR:</strong> {{widget.alert.message}}
+        <strong>{{widget.alert.getLabel()}}</strong> {{widget.alert.message}}
     </div>
 </div>
 <script>

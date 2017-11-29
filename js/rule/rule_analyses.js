@@ -40,6 +40,13 @@ var RuleAnalysis = function() {
                         }
                     }
                 }
+            },
+            searchRuleAnalysis: function(page) {
+                this.searchFilter.start_time = $('#filter_start_date').val()
+                this.searchFilter.end_time = $('#filter_end_date').val()
+                this.ruleAnalysisList.search(page, {
+                    filters: this.searchFilter
+                });
             }
         }
     });

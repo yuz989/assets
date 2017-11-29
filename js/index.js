@@ -4,12 +4,52 @@ Vue.use(VeeValidate);
 var Widget = function() {
     this.alert = {
         message: "",
-        show: function(message, delay) {
+        msgType: "danger",
+        show: function(message, msgType, delay) {
             this.message = message;
+            this.msgType = msgType;
             $('#widget-alert').show();
             setTimeout(function() {
                 $('#widget-alert').hide();
             }, delay || 2000)
+        },
+        display: function(message, msgType) {
+            this.message = message;
+            this.msgType = msgType;
+            $('#widget-alert').show();
+        },
+        hide: function() {
+            this.message = '';
+            this.msgType = 'danger';
+            $('#widget-alert').hide();
+        },
+        getClass: function() {
+            switch(this.msgType) {
+                case 'success':
+                    return 'alert-success';
+                case 'info':
+                    return 'alert-info';
+                case 'danger':
+                    return 'alert-danger';
+                case 'warning':
+                    return 'alert-warning';
+                default:
+                    return 'alert-danger';
+            }
+        },
+        getLabel: function() {
+            switch(this.msgType) {
+                case 'success':
+                    return '';
+                case 'info':
+                    return 'INFO:';
+                case 'danger':
+                    return 'ERROR:';
+                case 'warning':
+                    return 'WARNING:';
+                default:
+                    return 'ERROR:';
+            }
         }
     };
 };

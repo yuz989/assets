@@ -46,8 +46,6 @@ var EventSession = function() {
                     } else {
                         self.selectedEventSession.riskCheckList = {};
                     }
-
-                    console.log(self.selectedEventSession.riskCheckList);
                     $('#eventSessionDetailModal').modal('show');
                 });
             }
