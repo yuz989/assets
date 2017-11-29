@@ -7,7 +7,7 @@
     </section>
     <div class="pad margin no-print">
 
-        <form class="form-inline">
+        <div class="form-inline">
             <label class="mr-sm-2" for="ruleSelect">规则</label>
             <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="ruleSelect" v-model="searchFilter.rule_id">
                 <option value="0" selected>ALL</option>
@@ -32,8 +32,8 @@
                     end_date: searchFilter.end_time,
                     event_id: searchFilter.event_id,
                     rule_id: searchFilter.rule_id}
-            })" type="submit" class="btn btn-primary">查找</button>
-        </form>
+            })" class="btn btn-primary">查找</button>
+        </div>
     </div>
 
     <section class="invoice">

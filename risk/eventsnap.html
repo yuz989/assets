@@ -118,7 +118,7 @@
             <div class="col-sm-7">
                 <div class="dataTables_paginate paging_simple_numbers">
                 <ul class="pagination">
-                    <li v-bind:class="{disabled: eventSessionList.pagination.page==1}"
+                    <li v-bind:class="{disabled: eventSessionList.isPreviousDisabled()}"
                         class="paginate_button previous" id="example1_previous"><a
                             v-on:click="onSearchClick(eventSessionList.getPreviousPageNumber())"
                             aria-controls="example1"
@@ -138,9 +138,9 @@
                     </li>
 
                     <li
-                        v-bind:disabled="eventSessionList.isLoading() || eventSessionList.pagination.page == eventSessionList.pagination.totalPages || eventSessionList.pagination.total == 0"
-                        v-bind:class="{disabled: eventSessionList.pagination.page==eventSessionList.pagination.totalPages}"
+                        v-bind:class="{disabled: eventSessionList.isNextDisabled()}"
                         class="paginate_button next" id="example1_next"><a
+                            v-bind:disabled="eventSessionList.isLoading() || eventSessionList.pagination.page == eventSessionList.pagination.totalPages || eventSessionList.pagination.total == 0"
                             v-on:click="onSearchClick(eventSessionList.getNextPageNumber())"
                             aria-controls="example1"
                             data-dt-idx="7"

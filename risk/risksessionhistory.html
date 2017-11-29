@@ -131,7 +131,7 @@
     <div class="clearfix"></div>
 
     <div class="modal" id="riskOrderDetailModal" tabindex="-1" role="dialog"
-         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+         aria-hidden="true" data-keyboard="false" data-backdrop="static" style="max-height:100%;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -169,10 +169,10 @@
                             <tr>
                                 <td>内容</td>
                                 <td>
-                                    {{getRiskOrderFieldByDataType(riskOrderDetail, 'MJ', 'result_content')}}
+                                    <textarea class="col-xs-6" style="width:15em;height:10em;" readonly>{{getRiskOrderFieldByDataType(riskOrderDetail, 'MJ', 'result_content')}}</textarea>
                                 </td>
                                 <td>
-                                    {{getRiskOrderFieldByDataType(riskOrderDetail, 'KOUNT', 'result_content')}}
+                                    <textarea class="col-xs-6" style="width:15em;height:10em;" readonly>{{getRiskOrderFieldByDataType(riskOrderDetail, 'KOUNT', 'result_content')}}</textarea>
                                 </td>
                             </tr>
                         </tbody>

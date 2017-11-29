@@ -2,7 +2,7 @@ var PaginableComponent = PaginableComponent || function(param) {
     param = param || {};
     this.url = param.url || '';
     this.pagination = {
-        page: param.defaultPage || 1,
+        page: param.defaultPage || 0,
         pageSize: param.defaultPageSize || 32,
         total: 0,
         totalPages: 0
@@ -25,6 +25,10 @@ var PaginableComponent = PaginableComponent || function(param) {
 
     this.gotoPage = function(page, param) {
         var self = this;
+
+//        if(page != 0 && page > this.pagination.totalPages) return;
+
+        param = param || {};
         var settings = {
             defaultDelay: 0
         };
@@ -144,7 +148,7 @@ var PaginableComponent = PaginableComponent || function(param) {
     };
 
     this.getPreviousPageNumber = function() {
-        return (this.pagination.page - 1 > 0 ? this.pagination.page - 1 : 1);
+        return this.pagination.page - 1;
     };
 
     this.previousPage = function(param) {
@@ -191,8 +195,17 @@ var PaginableComponent = PaginableComponent || function(param) {
         }
     };
 
-    this.search = function(param) {
-        this.gotoPage(this.pagination.page, param);
+    this.search = function(page, param) {
+        param = param || {};
+        this.gotoPage(page || this.pagination.page, param);
+    };
+
+    this.isPreviousDisabled = function() {
+        return this.pagination.page - 1 < 1;
+    };
+
+    this.isNextDisabled = function() {
+        return this.pagination.page + 1 > this.pagination.totalPages;
     };
 
     this._resetStatus = function() {
